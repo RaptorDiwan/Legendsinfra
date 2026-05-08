@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Services – Legends Infra</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.service-section { padding:5rem 5%;border-bottom:1px solid var(--border); }
+.service-section:last-of-type { border-bottom:none; }
+.service-layout { display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center; }
+.service-layout.reverse { direction:rtl; }
+.service-layout.reverse > * { direction:ltr; }
+.service-visual { background:var(--dark3);border:1px solid var(--border);border-radius:6px;padding:3rem;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;min-height:280px;position:relative;overflow:hidden; }
+.service-visual::before { content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.04),transparent); }
+.service-big-icon { font-size:5rem;line-height:1; }
+.service-visual-label { font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;color:var(--muted); }
+.service-content h2 { font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3rem);line-height:1.05;margin-bottom:1rem; }
+.service-content h2 span { color:var(--gold); }
+.service-content p { font-size:.9rem;color:var(--muted);line-height:1.75;margin-bottom:1.5rem; }
+.service-list { list-style:none;display:grid;gap:.6rem;margin-bottom:2rem; }
+.service-list li { font-size:.88rem;color:var(--text);display:flex;align-items:flex-start;gap:.6rem; }
+.service-list li::before { content:'⚡';color:var(--gold);flex-shrink:0; }
+.price-note { background:rgba(201,168,76,.08);border:1px solid var(--border);border-left:3px solid var(--gold);padding:.8rem 1rem;border-radius:0 4px 4px 0;font-size:.82rem;color:var(--muted);margin-bottom:1.5rem; }
+.price-note strong { color:var(--gold); }
+
+/* anchor offset for fixed nav */
+.anchor-target { padding-top:80px;margin-top:-80px;display:block; }
+
+@media(max-width:768px) {
+  .service-layout,.service-layout.reverse { grid-template-columns:1fr;direction:ltr; }
+}
+</style>
+</head>
+<body>
+<div class="page-banner">
+  <div class="page-banner-content reveal">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Services</div>
+    <h1>OUR <span>SERVICES</span></h1>
+    <p>End-to-end fabrication and borewell solutions built for quality, delivered on time.</p>
+  </div>
+</div>
+
+<!-- FABRICATION -->
+<span class="anchor-target" id="fabrication"></span>
+<div class="service-section">
+  <div class="service-layout reveal">
+    <div class="service-content">
+      <div class="section-label">01 — Metal Works</div>
+      <h2>DECOR <span>FABRICATION</span></h2>
+      <p>We design and fabricate custom metal structures for homes, offices, factories, and commercial spaces. From ornate decorative gates to heavy industrial frameworks — we do it all with precision.</p>
+      <ul class="service-list">
+        <li>MS & SS entrance gates, pedestrian gates, sliding gates</li>
+        <li>Compound walls, boundary fencing, security grills</li>
+        <li>Staircase railings (SS 304 / MS powder coated)</li>
+        <li>Window grills, ventilation covers, safety screens</li>
+        <li>Pergolas, canopies, shade structures</li>
+        <li>Decorative laser-cut panels and façade elements</li>
+        <li>Custom furniture frames and industrial racks</li>
+      </ul>
+      <div class="price-note"><strong>Free site visit</strong> — we come to you, measure, and give a detailed written quote at no charge.</div>
+      <a href="contact.html" class="btn-gold">Get a Quote</a>
+    </div>
+    <div class="service-visual">
+      <div class="service-big-icon">🏗️</div>
+      <div class="service-visual-label">Fabrication Works</div>
+    </div>
+  </div>
+</div>
+
+<!-- INTERIOR -->
+<span class="anchor-target" id="interior"></span>
+<div class="service-section" style="background:var(--dark2)">
+  <div class="service-layout reverse reveal">
+    <div class="service-content">
+      <div class="section-label">02 — Interior Works</div>
+      <h2>INTERIOR <span>FIT-OUT</span></h2>
+      <p>Transform your commercial or residential space with precision interior fabrication. We bring your design vision to life — clean lines, quality materials, and flawless finish.</p>
+      <ul class="service-list">
+        <li>False ceiling — grid, gypsum, metal tile systems</li>
+        <li>Modular office partitions (glass, MS, aluminum)</li>
+        <li>Wall cladding panels and decorative screens</li>
+        <li>Showroom display racks and shelving systems</li>
+        <li>Factory mezzanine floors and raised platforms</li>
+        <li>Industrial roofing sheets — Manglore tile, Polycarbonate, GI</li>
+        <li>Restaurant & café interior metalwork</li>
+      </ul>
+      <div class="price-note"><strong>Turnkey available</strong> — we can handle the full fit-out from design to final paint finish.</div>
+      <a href="contact.html" class="btn-gold">Get a Quote</a>
+    </div>
+    <div class="service-visual">
+      <div class="service-big-icon">🎨</div>
+      <div class="service-visual-label">Interior Fit-Out</div>
+    </div>
+  </div>
+</div>
+
+<!-- BOREWELL -->
+<span class="anchor-target" id="borewell"></span>
+<div class="service-section">
+  <div class="service-layout reveal">
+    <div class="service-content">
+      <div class="section-label">03 — Water Solutions</div>
+      <h2>BOREWELL <span>DRILLING</span></h2>
+      <p>Professional borewell drilling using DTH and Rotary rigs. We handle everything — site assessment, drilling, casing installation, pump fitting, and final yield testing. One team, complete solution.</p>
+      <ul class="service-list">
+        <li>Free site assessment & borewell feasibility check</li>
+        <li>DTH and Rotary drilling up to 600+ ft depth</li>
+        <li>PVC and MS casing installation</li>
+        <li>Submersible pump supply and installation (1HP–7.5HP)</li>
+        <li>Panel board, starter, and wiring</li>
+        <li>Yield testing and water quality report</li>
+        <li>Suitable for residential, commercial, agricultural use</li>
+      </ul>
+      <div class="price-note"><strong>Transparent drilling rate</strong> — quoted per foot with full material breakup. No surprises.</div>
+      <a href="contact.html" class="btn-gold">Get a Quote</a>
+    </div>
+    <div class="service-visual">
+      <div class="service-big-icon">💧</div>
+      <div class="service-visual-label">Borewell Drilling</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAINTENANCE -->
+<span class="anchor-target" id="maintenance"></span>
+<div class="service-section" style="background:var(--dark2)">
+  <div class="service-layout reverse reveal">
+    <div class="service-content">
+      <div class="section-label">04 — Maintenance</div>
+      <h2>BOREWELL <span>MAINTENANCE</span></h2>
+      <p>Is your borewell giving low yield or your pump making noise? We diagnose and fix. Our maintenance team handles both emergency repairs and scheduled servicing.</p>
+      <ul class="service-list">
+        <li>Submersible pump removal, servicing & reinstallation</li>
+        <li>Borewell flushing and compressor air-cleaning</li>
+        <li>Low yield restoration and re-drilling advice</li>
+        <li>Pipe column replacement (GI / HDPE)</li>
+        <li>Starter panel and electrical troubleshooting</li>
+        <li>Annual maintenance contract (AMC) available</li>
+        <li>Emergency service — same day response</li>
+      </ul>
+      <div class="price-note"><strong>Same-day response</strong> for pump breakdowns. Call us and we'll send a technician ASAP.</div>
+      <a href="contact.html" class="btn-gold">Book Service</a>
+    </div>
+    <div class="service-visual">
+      <div class="service-big-icon">🔧</div>
+      <div class="service-visual-label">Maintenance</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-band reveal">
+  <div>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,3rem)">NOT SURE WHICH<br><span style="color:var(--gold)">SERVICE YOU NEED?</span></h2>
+    <p style="font-size:.9rem;color:var(--muted);margin-top:.4rem">Call us — we'll guide you to the right solution for your budget and requirement.</p>
+  </div>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap">
+    <a href="tel:+919677029865" class="btn-gold">📞 Call Now</a>
+    <a href="contact.html" class="btn-outline">Send Enquiry</a>
+  </div>
+</div>
+
+<a href="https://wa.me/919677029865" class="wa-float" target="_blank">💬</a>
+<script src="shared.js"></script>
+</body>
+</html>

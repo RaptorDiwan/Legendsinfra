@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin – Legends Infra</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root { --gold:#C9A84C;--gold-l:#F0D080;--dark:#0D0D0D;--dark2:#141414;--dark3:#1C1C1C;--dark4:#252525;--text:#EAEAEA;--muted:#888;--border:rgba(201,168,76,.15); }
+* { margin:0;padding:0;box-sizing:border-box; }
+body { background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh; }
+
+/* LOGIN */
+#loginScreen { min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem; }
+.login-card { background:var(--dark2);border:1px solid var(--border);border-radius:8px;padding:3rem;max-width:380px;width:100%;text-align:center; }
+.login-logo { font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gold);letter-spacing:2px;margin-bottom:.3rem; }
+.login-sub { font-size:.8rem;color:var(--muted);margin-bottom:2rem; }
+.login-card input { width:100%;background:var(--dark3);border:1px solid var(--border);color:var(--text);padding:.9rem 1rem;border-radius:3px;font-size:.95rem;font-family:'DM Sans',sans-serif;outline:none;text-align:center;letter-spacing:.2rem;margin-bottom:1rem; }
+.login-card input:focus { border-color:var(--gold); }
+.btn-login { width:100%;background:var(--gold);color:var(--dark);padding:.9rem;border:none;border-radius:3px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .3s; }
+.btn-login:hover { background:var(--gold-l); }
+.login-err { color:#e74c3c;font-size:.82rem;margin-top:.8rem;display:none; }
+
+/* ADMIN */
+#adminPanel { display:none;padding:0; }
+.admin-header { background:var(--dark2);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10; }
+.admin-logo { font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);letter-spacing:2px; }
+.admin-logo span { color:var(--muted);font-size:.8rem;font-family:'DM Sans',sans-serif;font-weight:400;margin-left:.8rem; }
+.btn-logout { background:transparent;border:1px solid var(--border);color:var(--muted);padding:.4rem .9rem;border-radius:2px;font-size:.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .3s; }
+.btn-logout:hover { border-color:var(--gold);color:var(--gold); }
+.admin-body { padding:2rem;max-width:1100px;margin:0 auto; }
+
+/* TABS */
+.tab-bar { display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:2rem; }
+.tab { background:none;border:none;color:var(--muted);padding:.8rem 1.5rem;font-size:.85rem;cursor:pointer;font-family:'DM Sans',sans-serif;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .3s; }
+.tab.active { color:var(--gold);border-bottom-color:var(--gold);font-weight:600; }
+
+/* ADD POST FORM */
+.add-form { background:var(--dark2);border:1px solid var(--border);border-radius:6px;padding:2rem; }
+.add-form h2 { font-family:'Bebas Neue',sans-serif;font-size:1.5rem;margin-bottom:1.5rem; }
+.form-row { display:grid;grid-template-columns:1fr 1fr;gap:1rem; }
+.form-group { display:grid;gap:.4rem;margin-bottom:1rem; }
+.form-group label { font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px; }
+.form-group input,.form-group select,.form-group textarea {
+  background:var(--dark3);border:1px solid var(--border);color:var(--text);
+  padding:.75rem 1rem;border-radius:3px;font-size:.9rem;
+  font-family:'DM Sans',sans-serif;outline:none;transition:border-color .3s;width:100%;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus { border-color:var(--gold); }
+.form-group textarea { height:90px;resize:vertical; }
+.form-group select option { background:var(--dark3); }
+.img-preview { width:100%;height:160px;background:var(--dark3);border:1px solid var(--border);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.85rem;overflow:hidden;margin-top:.4rem; }
+.img-preview img { width:100%;height:100%;object-fit:cover; }
+.img-hint { font-size:.75rem;color:var(--muted);margin-top:.4rem;line-height:1.5; }
+.img-hint a { color:var(--gold); }
+.btn-add { background:var(--gold);color:var(--dark);padding:.85rem 2rem;border:none;border-radius:3px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .3s; }
+.btn-add:hover { background:var(--gold-l); }
+.btn-clear { background:transparent;border:1px solid var(--border);color:var(--muted);padding:.85rem 1.5rem;border-radius:3px;font-size:.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .3s;margin-left:.8rem; }
+.btn-clear:hover { border-color:var(--gold);color:var(--gold); }
+
+/* POSTS LIST */
+.posts-header { display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem; }
+.posts-count { font-size:.85rem;color:var(--muted); }
+.post-list { display:grid;gap:1rem; }
+.post-item { background:var(--dark2);border:1px solid var(--border);border-radius:4px;display:flex;gap:1.2rem;align-items:flex-start;padding:1.2rem;transition:border-color .3s; }
+.post-item:hover { border-color:rgba(201,168,76,.3); }
+.post-thumb { width:80px;height:70px;border-radius:3px;object-fit:cover;flex-shrink:0;background:var(--dark3);display:flex;align-items:center;justify-content:center;font-size:1.8rem; }
+.post-thumb img { width:80px;height:70px;object-fit:cover;border-radius:3px; }
+.post-info { flex:1;min-width:0; }
+.post-cat { display:inline-block;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);color:var(--gold);font-size:.65rem;font-weight:700;padding:.15rem .5rem;border-radius:2px;letter-spacing:1px;text-transform:uppercase;margin-bottom:.4rem; }
+.post-info h3 { font-size:.95rem;font-weight:600;margin-bottom:.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.post-info p { font-size:.8rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.post-meta { font-size:.75rem;color:var(--muted);margin-top:.3rem; }
+.post-meta strong { color:var(--gold-l); }
+.post-actions { display:flex;gap:.5rem;flex-shrink:0; }
+.btn-edit { background:transparent;border:1px solid var(--border);color:var(--muted);padding:.4rem .8rem;border-radius:2px;font-size:.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .3s; }
+.btn-edit:hover { border-color:var(--gold);color:var(--gold); }
+.btn-del { background:transparent;border:1px solid rgba(231,76,60,.2);color:rgba(231,76,60,.6);padding:.4rem .8rem;border-radius:2px;font-size:.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .3s; }
+.btn-del:hover { border-color:#e74c3c;color:#e74c3c; }
+.empty-list { text-align:center;padding:4rem 1rem;color:var(--muted); }
+.empty-list .icon { font-size:2.5rem;margin-bottom:.8rem; }
+
+/* TOAST */
+.toast { position:fixed;bottom:2rem;right:2rem;background:var(--gold);color:var(--dark);padding:.8rem 1.4rem;border-radius:4px;font-weight:600;font-size:.85rem;transform:translateY(80px);opacity:0;transition:all .4s;pointer-events:none;z-index:999; }
+.toast.show { transform:translateY(0);opacity:1; }
+
+/* HOW TO SECTION */
+.how-card { background:var(--dark2);border:1px solid var(--border);border-radius:6px;padding:2rem; }
+.step { display:flex;gap:1rem;margin-bottom:1.5rem;align-items:flex-start; }
+.step-num { width:32px;height:32px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--gold);flex-shrink:0; }
+.step h4 { font-size:.9rem;font-weight:600;margin-bottom:.25rem; }
+.step p { font-size:.83rem;color:var(--muted);line-height:1.65; }
+.step a { color:var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">LEGENDS INFRA</div>
+    <div class="login-sub">Admin Panel — Enter password to continue</div>
+    <input type="password" id="pwInput" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="btn-login" onclick="doLogin()">Login →</button>
+    <div class="login-err" id="loginErr">❌ Wrong password. Try again.</div>
+
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel">
+  <div class="admin-header">
+    <div class="admin-logo">LEGENDS INFRA <span>Admin Panel</span></div>
+    <div style="display:flex;align-items:center;gap:1rem">
+      <a href="index.html" style="color:var(--gold);font-size:.82rem;text-decoration:none" target="_blank">View Site ↗</a>
+      <button class="btn-logout" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+  <div class="admin-body">
+    <div class="tab-bar">
+      <button class="tab active" onclick="showTab('add',this)">➕ Add New Post</button>
+      <button class="tab" onclick="showTab('posts',this)">📋 All Posts</button>
+      <button class="tab" onclick="showTab('howto',this)">❓ How to Add Photos</button>
+    </div>
+
+    <!-- ADD TAB -->
+    <div id="tab-add">
+      <div class="add-form">
+        <h2 id="formTitle">➕ ADD NEW WORK POST</h2>
+        <input type="hidden" id="editId"/>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Project Title *</label>
+            <input type="text" id="ptitle" placeholder="e.g. Factory Gate – Ambattur"/>
+          </div>
+          <div class="form-group">
+            <label>Category *</label>
+            <select id="pcat">
+              <option value="">Select category...</option>
+              <option>Fabrication</option>
+              <option>Interior</option>
+              <option>Borewell</option>
+              <option>Maintenance</option>
+              <option>Commercial</option>
+              <option>Residential</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Location</label>
+            <input type="text" id="ploc" placeholder="e.g. Tambaram, Chennai"/>
+          </div>
+          <div class="form-group">
+            <label>Year</label>
+            <input type="text" id="pyear" placeholder="e.g. 2024"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="pdesc" placeholder="Brief description of the work done, materials used, etc."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Photo URL (from ImgBB / Google Drive / any image link)</label>
+          <input type="url" id="pimage" placeholder="https://i.ibb.co/..." oninput="previewImg(this.value)"/>
+          <div class="img-preview" id="imgPreview">
+            <span>📷 Image preview will appear here</span>
+          </div>
+          <div class="img-hint">
+            👆 How to add a photo: <a href="https://imgbb.com" target="_blank">Upload to ImgBB.com</a> (free) → Click "Upload" → Copy the "Direct Link" URL → Paste it above.<br/>
+            Works with any public image URL from Google Drive, WhatsApp Web save, or any photo website.
+          </div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <button class="btn-add" onclick="savePost()">💾 Save Post</button>
+          <button class="btn-clear" onclick="clearForm()">✕ Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POSTS TAB -->
+    <div id="tab-posts" style="display:none">
+      <div class="posts-header">
+        <div class="posts-count" id="postsCount">Loading...</div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn-clear" onclick="if(confirm('Delete ALL posts?')){localStorage.removeItem('li_posts');loadPostsList();}">🗑 Clear All</button>
+        </div>
+      </div>
+      <div class="post-list" id="postList"></div>
+    </div>
+
+    <!-- HOW TO TAB -->
+    <div id="tab-howto" style="display:none">
+      <div class="how-card">
+        <div class="section-label">Image Hosting Guide</div>
+        <div class="section-title" style="margin-bottom:1.5rem">HOW TO <span style="color:var(--gold)">ADD PHOTOS</span></div>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div><h4>Take a photo of your work</h4><p>Take a clear photo with your mobile. Good lighting works best. Save to your phone gallery.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div><h4>Go to <a href="https://imgbb.com" target="_blank">imgbb.com</a></h4><p>This is a free photo hosting website. No account needed. Open it on your phone or computer.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div><h4>Upload your photo</h4><p>Click "Start Uploading" → choose your photo → click "Upload". It uploads in seconds.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div><h4>Copy the "Direct Link"</h4><p>After upload, you'll see links. Copy the one labeled <strong style="color:var(--gold)">"Direct link"</strong> — it ends with .jpg or .png</p></div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div><h4>Paste in "Add New Post"</h4><p>Go to the "Add New Post" tab, paste the link in the "Photo URL" box. The preview will show your image instantly.</p></div>
+        </div>
+        <div style="background:rgba(201,168,76,.08);border:1px solid var(--border);border-left:3px solid var(--gold);padding:1rem 1.2rem;border-radius:0 4px 4px 0;margin-top:1.5rem">
+          <strong style="color:var(--gold)">Alternative:</strong> If you use Google Drive, upload the photo → right-click → "Get shareable link" → change the URL from <code style="color:var(--muted)">drive.google.com/file/d/ID/view</code> to <code style="color:var(--muted)">drive.google.com/uc?id=ID</code>. That gives a direct image link.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const ADMIN_PASS = 'Diwan@2053';
+
+function doLogin() {
+  const pw = document.getElementById('pwInput').value;
+  if (pw === ADMIN_PASS) {
+    sessionStorage.setItem('li_admin', '1');
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    loadPostsList();
+  } else {
+    document.getElementById('loginErr').style.display = 'block';
+  }
+}
+
+function doLogout() {
+  sessionStorage.removeItem('li_admin');
+  location.reload();
+}
+
+// Check session
+window.onload = () => {
+  if (sessionStorage.getItem('li_admin')) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    loadPostsList();
+    // prefill year
+    document.getElementById('pyear').value = new Date().getFullYear();
+  }
+};
+
+function getPosts() { try { return JSON.parse(localStorage.getItem('li_posts') || '[]'); } catch { return []; } }
+function savePosts(p) { localStorage.setItem('li_posts', JSON.stringify(p)); }
+
+function showTab(name, btn) {
+  ['add','posts','howto'].forEach(t => document.getElementById('tab-'+t).style.display = 'none');
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+name).style.display = 'block';
+  btn.classList.add('active');
+  if (name === 'posts') loadPostsList();
+}
+
+function previewImg(url) {
+  const box = document.getElementById('imgPreview');
+  if (!url) { box.innerHTML = '<span>📷 Image preview will appear here</span>'; return; }
+  box.innerHTML = `<img src="${url}" style="width:100%;height:160px;object-fit:cover;border-radius:3px" onerror="this.parentElement.innerHTML='<span style=color:#e74c3c>❌ Image not loading — check URL</span>'"/>`;
+}
+
+function clearForm() {
+  ['ptitle','pcat','ploc','pyear','pdesc','pimage','editId'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('imgPreview').innerHTML = '<span>📷 Image preview will appear here</span>';
+  document.getElementById('formTitle').textContent = '➕ ADD NEW WORK POST';
+  document.getElementById('pyear').value = new Date().getFullYear();
+}
+
+function savePost() {
+  const title = document.getElementById('ptitle').value.trim();
+  const cat   = document.getElementById('pcat').value;
+  const loc   = document.getElementById('ploc').value.trim();
+  const year  = document.getElementById('pyear').value.trim();
+  const desc  = document.getElementById('pdesc').value.trim();
+  const image = document.getElementById('pimage').value.trim();
+  const editId = document.getElementById('editId').value;
+
+  if (!title || !cat) { showToast('❌ Title and Category are required'); return; }
+
+  const posts = getPosts();
+  if (editId) {
+    const idx = posts.findIndex(p => p.id === editId);
+    if (idx > -1) {
+      posts[idx] = { ...posts[idx], title, category:cat, location:loc||'Tamil Nadu', year:year||new Date().getFullYear(), description:desc, image };
+      showToast('✅ Post updated!');
+    }
+  } else {
+    const newPost = {
+      id: 'p' + Date.now(),
+      title, category: cat,
+      location: loc || 'Tamil Nadu',
+      year: year || new Date().getFullYear(),
+      description: desc,
+      image,
+      addedOn: new Date().toLocaleDateString('en-IN')
+    };
+    posts.unshift(newPost);
+    showToast('✅ Post added! Visible on site now.');
+  }
+  savePosts(posts);
+  clearForm();
+  loadPostsList();
+}
+
+function loadPostsList() {
+  const posts = getPosts();
+  const count = document.getElementById('postsCount');
+  const list  = document.getElementById('postList');
+  count.textContent = `${posts.length} post${posts.length !== 1 ? 's' : ''} total`;
+  if (posts.length === 0) {
+    list.innerHTML = `<div class="empty-list"><div class="icon">📂</div><p>No posts yet. Add your first work post!</p></div>`;
+    return;
+  }
+  list.innerHTML = posts.map(p => `
+    <div class="post-item">
+      <div class="post-thumb">
+        ${p.image ? `<img src="${p.image}" onerror="this.style.display='none'"/>` : '🏗️'}
+      </div>
+      <div class="post-info">
+        <div class="post-cat">${p.category}</div>
+        <h3>${p.title}</h3>
+        <p>${p.description || '—'}</p>
+        <div class="post-meta">📍 <strong>${p.location}</strong> &nbsp;·&nbsp; 📅 <strong>${p.year}</strong>${p.addedOn ? ` &nbsp;·&nbsp; Added: ${p.addedOn}` : ''}</div>
+      </div>
+      <div class="post-actions">
+        <button class="btn-edit" onclick="editPost('${p.id}')">✏ Edit</button>
+        <button class="btn-del" onclick="deletePost('${p.id}')">🗑</button>
+      </div>
+    </div>`).join('');
+}
+
+function editPost(id) {
+  const p = getPosts().find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('ptitle').value = p.title;
+  document.getElementById('pcat').value = p.category;
+  document.getElementById('ploc').value = p.location;
+  document.getElementById('pyear').value = p.year;
+  document.getElementById('pdesc').value = p.description;
+  document.getElementById('pimage').value = p.image || '';
+  document.getElementById('editId').value = p.id;
+  document.getElementById('formTitle').textContent = '✏ EDIT POST';
+  previewImg(p.image || '');
+  showTab('add', document.querySelectorAll('.tab')[0]);
+  document.querySelector('.add-form').scrollIntoView({behavior:'smooth'});
+}
+
+function deletePost(id) {
+  if (!confirm('Delete this post?')) return;
+  const posts = getPosts().filter(p => p.id !== id);
+  savePosts(posts);
+  loadPostsList();
+  showToast('🗑 Post deleted');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>

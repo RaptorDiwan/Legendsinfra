@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Legends Infra – Decor Fabrication & Borewell Solutions</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.hero {
+  min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+  padding:7rem 5% 5rem; position:relative; overflow:hidden;
+}
+.hero-bg { position:absolute;inset:0;background:linear-gradient(135deg,#0D0D0D 55%,#1a1408 100%); }
+.hero-grid {
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(201,168,76,.05) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(201,168,76,.05) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.hero-accent { position:absolute;right:-10%;top:20%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 70%); }
+.hero-content { position:relative;z-index:2;max-width:800px; }
+.hero-badge { display:inline-flex;align-items:center;gap:.5rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);color:var(--gold);font-size:.75rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:.4rem 1rem;border-radius:2px;margin-bottom:1.8rem; }
+.hero h1 { font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,10vw,8rem);line-height:.9;margin-bottom:1.2rem; }
+.hero h1 .line2 { color:var(--gold); }
+.hero h1 .line3 { -webkit-text-stroke:1px var(--text);color:transparent; }
+.hero-sub { font-size:1.05rem;color:var(--muted);max-width:520px;line-height:1.75;margin-bottom:2.5rem;font-weight:300; }
+.hero-btns { display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:4rem; }
+.hero-stats { display:flex;gap:3rem;flex-wrap:wrap; }
+.stat-item .num { font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);line-height:1; }
+.stat-item .lbl { font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px; }
+
+/* SERVICES STRIP */
+.services-strip { background:var(--dark2);padding:4rem 5%; }
+.strip-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border); }
+.strip-card { background:var(--dark2);padding:2rem 1.8rem;transition:background .3s; }
+.strip-card:hover { background:var(--dark3); }
+.strip-icon { font-size:2rem;margin-bottom:1rem; }
+.strip-card h3 { font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1px;margin-bottom:.5rem; }
+.strip-card p { font-size:.83rem;color:var(--muted);line-height:1.65; }
+.strip-more { display:inline-block;margin-top:1rem;color:var(--gold);font-size:.8rem;font-weight:600;text-decoration:none;letter-spacing:.5px; }
+.strip-more:hover { text-decoration:underline; }
+
+/* RECENT WORK */
+.work-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem; }
+.work-card { background:var(--dark3);border:1px solid rgba(201,168,76,.08);border-radius:4px;overflow:hidden;transition:transform .3s,border-color .3s; }
+.work-card:hover { transform:translateY(-5px);border-color:rgba(201,168,76,.3); }
+.work-card-img { width:100%;height:200px;object-fit:cover;display:block;background:var(--dark4); }
+.work-card-img-placeholder { width:100%;height:200px;background:var(--dark4);display:flex;align-items:center;justify-content:center;font-size:3rem; }
+.work-card-body { padding:1.3rem; }
+.work-cat-badge { display:inline-block;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);color:var(--gold);font-size:.67rem;font-weight:700;padding:.2rem .6rem;border-radius:2px;letter-spacing:1px;text-transform:uppercase;margin-bottom:.6rem; }
+.work-card-body h3 { font-size:.95rem;font-weight:600;margin-bottom:.35rem; }
+.work-card-body p { font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:.8rem; }
+.work-meta { display:flex;gap:1.2rem; }
+.work-meta span { font-size:.74rem;color:var(--muted); }
+.work-meta strong { color:var(--gold-l); }
+
+/* TESTIMONIALS */
+.testi-bg { background:var(--dark3); }
+.testi-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem; }
+.testi-card { background:var(--dark2);border:1px solid var(--border);padding:2rem;border-radius:4px; }
+.testi-q { font-size:2.5rem;color:var(--gold);line-height:1;margin-bottom:.8rem; }
+.testi-text { font-size:.88rem;color:var(--text);line-height:1.75;margin-bottom:1.4rem;font-style:italic; }
+.testi-author { display:flex;align-items:center;gap:.8rem; }
+.testi-av { width:38px;height:38px;border-radius:50%;background:rgba(201,168,76,.18);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.85rem;color:var(--gold); }
+.testi-name { font-size:.88rem;font-weight:600; }
+.testi-loc { font-size:.74rem;color:var(--muted); }
+
+/* CTA BAND */
+.cta-band { background:linear-gradient(135deg,#1a1408 0%,var(--dark2) 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem 5%;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap; }
+.cta-band h2 { font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,3rem);line-height:1.1; }
+.cta-band h2 span { color:var(--gold); }
+.cta-band p { font-size:.9rem;color:var(--muted);margin-top:.4rem; }
+.cta-btns { display:flex;gap:1rem;flex-wrap:wrap; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-accent"></div>
+  <div class="hero-content">
+    <div class="hero-badge">⚙ Trusted Infra Partner in Tamil Nadu</div>
+    <h1>
+      <div>WE BUILD</div>
+      <div class="line2">LEGENDS</div>
+      <div class="line3">IN STEEL</div>
+    </h1>
+    <p class="hero-sub">Premium decor fabrication, structural interiors, and expert borewell drilling. Quality workmanship trusted by 50+ clients across Tamil Nadu.</p>
+    <div class="hero-btns">
+      <a href="portfolio.html" class="btn-gold">View Our Work</a>
+      <a href="contact.html" class="btn-outline">Get Free Quote</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="num">150+</div><div class="lbl">Projects Done</div></div>
+      <div class="stat-item"><div class="num">8+</div><div class="lbl">Years Experience</div></div>
+      <div class="stat-item"><div class="num">50+</div><div class="lbl">Happy Clients</div></div>
+      <div class="stat-item"><div class="num">3</div><div class="lbl">Districts Covered</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES STRIP -->
+<div class="services-strip reveal">
+  <div class="section-label">What We Do</div>
+  <div class="section-title" style="margin-bottom:2rem">OUR <span>SERVICES</span></div>
+  <div class="strip-grid">
+    <div class="strip-card">
+      <div class="strip-icon">🏗️</div>
+      <h3>Decor Fabrication</h3>
+      <p>Custom steel & aluminum structures — gates, railings, grills, pergolas, and designer metalwork for homes and businesses.</p>
+      <a href="services.html#fabrication" class="strip-more">Learn More →</a>
+    </div>
+    <div class="strip-card">
+      <div class="strip-icon">🎨</div>
+      <h3>Interior Fit-Out</h3>
+      <p>False ceilings, wall panels, partitions, and modular structures. Modern aesthetics built with precision fabrication.</p>
+      <a href="services.html#interior" class="strip-more">Learn More →</a>
+    </div>
+    <div class="strip-card">
+      <div class="strip-icon">💧</div>
+      <h3>Borewell Drilling</h3>
+      <p>Full-service borewell solutions — site survey, drilling, casing, pump installation and yield testing.</p>
+      <a href="services.html#borewell" class="strip-more">Learn More →</a>
+    </div>
+    <div class="strip-card">
+      <div class="strip-icon">🔧</div>
+      <h3>Borewell Maintenance</h3>
+      <p>Pump servicing, flushing, compressor work, and borewell revival for better yield and longer life.</p>
+      <a href="services.html#maintenance" class="strip-more">Learn More →</a>
+    </div>
+  </div>
+</div>
+
+<!-- RECENT WORK -->
+<section>
+  <div class="reveal">
+    <div class="section-label">Portfolio</div>
+    <div class="section-title">RECENT <span>WORK</span></div>
+    <div class="divider"></div>
+  </div>
+  <div class="work-grid reveal" id="recentWork"></div>
+  <div style="text-align:center;margin-top:2.5rem" class="reveal">
+    <a href="portfolio.html" class="btn-outline">See All Projects →</a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-bg">
+  <div class="reveal">
+    <div class="section-label">Client Reviews</div>
+    <div class="section-title">WHAT CLIENTS <span>SAY</span></div>
+    <div class="divider"></div>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <div class="testi-q">"</div>
+      <p class="testi-text">Legends Infra did an excellent job with our factory gate and compound railing. The finish was clean, delivery on time, and team was professional throughout.</p>
+      <div class="testi-author"><div class="testi-av">RK</div><div><div class="testi-name">Ramesh Kumar</div><div class="testi-loc">Factory Owner, Chennai</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-q">"</div>
+      <p class="testi-text">We hired them for borewell drilling at our new site. They did a proper soil analysis and the water yield has been excellent. Very trustworthy team.</p>
+      <div class="testi-author"><div class="testi-av">SL</div><div><div class="testi-name">Suresh Lakshmanan</div><div class="testi-loc">Builder, Kanchipuram</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-q">"</div>
+      <p class="testi-text">The false ceiling and metalwork for our showroom is exactly what we imagined. Great design sense and very fair pricing. Highly recommended!</p>
+      <div class="testi-author"><div class="testi-av">PM</div><div><div class="testi-name">Priya Muthu</div><div class="testi-loc">Showroom Owner, Tambaram</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band reveal">
+  <div>
+    <h2>READY TO START<br>YOUR <span>PROJECT?</span></h2>
+    <p>Call us or drop a message — we'll get back within 24 hours.</p>
+  </div>
+  <div class="cta-btns">
+    <a href="tel:+919677029865" class="btn-gold">📞 Call Now</a>
+    <a href="contact.html" class="btn-outline">Send Enquiry</a>
+  </div>
+</div>
+
+<a href="https://wa.me/919677029865" class="wa-float" target="_blank" title="Chat on WhatsApp">💬</a>
+<div class="toast" id="toast"></div>
+
+<script src="shared.js"></script>
+<script>
+async function renderRecent() {
+  const grid = document.getElementById('recentWork');
+  grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted);font-size:.9rem">Loading projects...</div>';
+  const posts = await getPosts();
+  const show = posts.slice(0, 6);
+  if (show.length === 0) {
+    const samples = [
+      {category:'Fabrication',emoji:'🏗️',title:'Industrial Factory Gate',location:'Ambattur',year:'2024',description:'Heavy-duty MS gates with anti-rust coating.'},
+      {category:'Interior',emoji:'🎨',title:'Office Interior Fit-Out',location:'OMR, Chennai',year:'2024',description:'False ceiling & partitions for 4000 sq.ft office.'},
+      {category:'Borewell',emoji:'💧',title:'Residential Borewell',location:'Tambaram',year:'2024',description:'280 ft borewell with 1HP submersible pump.'},
+    ];
+    grid.innerHTML = samples.map(s => `
+      <div class="work-card">
+        <div class="work-card-img-placeholder">${s.emoji}</div>
+        <div class="work-card-body">
+          <div class="work-cat-badge">${s.category}</div>
+          <h3>${s.title}</h3>
+          <p>${s.description}</p>
+          <div class="work-meta"><span>📍 <strong>${s.location}</strong></span><span>📅 <strong>${s.year}</strong></span></div>
+        </div>
+      </div>`).join('');
+    return;
+  }
+  grid.innerHTML = show.map(p => `
+    <div class="work-card">
+      ${p.image ? `<img class="work-card-img" src="${p.image}" alt="${p.title}" onerror="this.style.display='none'"/>` : `<div class="work-card-img-placeholder">🏗️</div>`}
+      <div class="work-card-body">
+        <div class="work-cat-badge">${p.category}</div>
+        <h3>${p.title}</h3>
+        <p>${p.description}</p>
+        <div class="work-meta"><span>📍 <strong>${p.location}</strong></span><span>📅 <strong>${p.year}</strong></span></div>
+      </div>
+    </div>`).join('');
+}
+renderRecent();
+</script>
+</body>
+</html>
