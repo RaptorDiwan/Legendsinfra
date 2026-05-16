@@ -3,227 +3,258 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Legends Infra – Decor Fabrication & Borewell Solutions</title>
+<title>Legends Infra – Decor Fabrication & Borewell Solutions, Tamil Nadu</title>
 <link rel="stylesheet" href="style.css"/>
 <style>
+/* ── HERO ── */
 .hero {
   min-height:100vh; display:flex; flex-direction:column; justify-content:center;
-  padding:7rem 5% 5rem; position:relative; overflow:hidden;
+  padding:8rem 5% 5rem; position:relative; overflow:hidden;
+  background:var(--green);
 }
-.hero-bg { position:absolute;inset:0;background:linear-gradient(135deg,#0D0D0D 55%,#1a1408 100%); }
-.hero-grid {
-  position:absolute;inset:0;
-  background-image:linear-gradient(rgba(201,168,76,.05) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(201,168,76,.05) 1px,transparent 1px);
-  background-size:60px 60px;
+.hero-texture {
+  position:absolute; inset:0; opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
-.hero-accent { position:absolute;right:-10%;top:20%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 70%); }
-.hero-content { position:relative;z-index:2;max-width:800px; }
-.hero-badge { display:inline-flex;align-items:center;gap:.5rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);color:var(--gold);font-size:.75rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:.4rem 1rem;border-radius:2px;margin-bottom:1.8rem; }
-.hero h1 { font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,10vw,8rem);line-height:.9;margin-bottom:1.2rem; }
-.hero h1 .line2 { color:var(--gold); }
-.hero h1 .line3 { -webkit-text-stroke:1px var(--text);color:transparent; }
-.hero-sub { font-size:1.05rem;color:var(--muted);max-width:520px;line-height:1.75;margin-bottom:2.5rem;font-weight:300; }
-.hero-btns { display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:4rem; }
-.hero-stats { display:flex;gap:3rem;flex-wrap:wrap; }
-.stat-item .num { font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);line-height:1; }
-.stat-item .lbl { font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px; }
+.hero-glow { position:absolute; right:-5%; top:10%; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle, rgba(184,148,90,.15) 0%, transparent 70%); }
+.hero-content { position:relative; z-index:2; max-width:780px; }
+.hero-badge {
+  display:inline-flex; align-items:center; gap:.5rem;
+  background:rgba(184,148,90,.15); border:1px solid rgba(184,148,90,.35);
+  color:var(--brass-l); font-size:.72rem; font-weight:600;
+  letter-spacing:2.5px; text-transform:uppercase;
+  padding:.4rem 1rem; border-radius:2px; margin-bottom:2rem;
+}
+.hero h1 {
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(3.5rem,9vw,7.5rem); line-height:.95; color:#fff;
+  margin-bottom:1.5rem;
+}
+.hero h1 em { font-style:italic; color:var(--brass-l); }
+.hero-sub { font-size:1rem; color:rgba(255,255,255,.65); max-width:500px; line-height:1.8; margin-bottom:2.5rem; font-weight:300; }
+.hero-btns { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:4rem; }
+.btn-hero-outline {
+  display:inline-flex; align-items:center; gap:.5rem;
+  border:1.5px solid rgba(255,255,255,.35); color:rgba(255,255,255,.85);
+  padding:.85rem 2rem; border-radius:2px; font-size:.82rem; font-weight:600;
+  text-decoration:none; letter-spacing:1px; text-transform:uppercase;
+  transition:all .3s;
+}
+.btn-hero-outline:hover { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.7); }
+.hero-stats { display:flex; gap:3rem; flex-wrap:wrap; padding-top:2rem; border-top:1px solid rgba(255,255,255,.1); }
+.hero-stat .num { font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:300; color:#fff; line-height:1; }
+.hero-stat .lbl { font-size:.7rem; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:1.5px; margin-top:.2rem; }
 
-/* SERVICES STRIP */
-.services-strip { background:var(--dark2);padding:4rem 5%; }
-.strip-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border); }
-.strip-card { background:var(--dark2);padding:2rem 1.8rem;transition:background .3s; }
-.strip-card:hover { background:var(--dark3); }
-.strip-icon { font-size:2rem;margin-bottom:1rem; }
-.strip-card h3 { font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1px;margin-bottom:.5rem; }
-.strip-card p { font-size:.83rem;color:var(--muted);line-height:1.65; }
-.strip-more { display:inline-block;margin-top:1rem;color:var(--gold);font-size:.8rem;font-weight:600;text-decoration:none;letter-spacing:.5px; }
-.strip-more:hover { text-decoration:underline; }
+/* ── INTRO STRIP ── */
+.intro-strip { background:#fff; padding:3rem 5%; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:2rem; border-bottom:1px solid var(--border); }
+.intro-strip p { font-size:1rem; color:var(--text-m); max-width:620px; line-height:1.75; font-weight:300; }
+.intro-strip .badge-row { display:flex; gap:.8rem; flex-wrap:wrap; }
+.badge { background:var(--green-tint); color:var(--green-m); font-size:.72rem; font-weight:600; padding:.35rem .8rem; border-radius:20px; border:1px solid var(--border); letter-spacing:.5px; }
 
-/* RECENT WORK */
-.work-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem; }
-.work-card { background:var(--dark3);border:1px solid rgba(201,168,76,.08);border-radius:4px;overflow:hidden;transition:transform .3s,border-color .3s; }
-.work-card:hover { transform:translateY(-5px);border-color:rgba(201,168,76,.3); }
-.work-card-img { width:100%;height:200px;object-fit:cover;display:block;background:var(--dark4); }
-.work-card-img-placeholder { width:100%;height:200px;background:var(--dark4);display:flex;align-items:center;justify-content:center;font-size:3rem; }
-.work-card-body { padding:1.3rem; }
-.work-cat-badge { display:inline-block;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);color:var(--gold);font-size:.67rem;font-weight:700;padding:.2rem .6rem;border-radius:2px;letter-spacing:1px;text-transform:uppercase;margin-bottom:.6rem; }
-.work-card-body h3 { font-size:.95rem;font-weight:600;margin-bottom:.35rem; }
-.work-card-body p { font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:.8rem; }
-.work-meta { display:flex;gap:1.2rem; }
-.work-meta span { font-size:.74rem;color:var(--muted); }
-.work-meta strong { color:var(--gold-l); }
+/* ── SERVICES ── */
+.services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.5rem; }
 
-/* TESTIMONIALS */
-.testi-bg { background:var(--dark3); }
-.testi-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem; }
-.testi-card { background:var(--dark2);border:1px solid var(--border);padding:2rem;border-radius:4px; }
-.testi-q { font-size:2.5rem;color:var(--gold);line-height:1;margin-bottom:.8rem; }
-.testi-text { font-size:.88rem;color:var(--text);line-height:1.75;margin-bottom:1.4rem;font-style:italic; }
-.testi-author { display:flex;align-items:center;gap:.8rem; }
-.testi-av { width:38px;height:38px;border-radius:50%;background:rgba(201,168,76,.18);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.85rem;color:var(--gold); }
-.testi-name { font-size:.88rem;font-weight:600; }
-.testi-loc { font-size:.74rem;color:var(--muted); }
+/* ── WORK PREVIEW ── */
+.work-preview-wrap { background:var(--cream); }
 
-/* CTA BAND */
-.cta-band { background:linear-gradient(135deg,#1a1408 0%,var(--dark2) 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem 5%;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap; }
-.cta-band h2 { font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4vw,3rem);line-height:1.1; }
-.cta-band h2 span { color:var(--gold); }
-.cta-band p { font-size:.9rem;color:var(--muted);margin-top:.4rem; }
-.cta-btns { display:flex;gap:1rem;flex-wrap:wrap; }
+/* ── INSTAGRAM ── */
+.insta-section { background:#fff; }
+.insta-header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:2rem; }
+.insta-handle { display:flex; align-items:center; gap:.6rem; text-decoration:none; color:var(--green); font-weight:600; font-size:.88rem; }
+.insta-handle svg { width:20px; height:20px; }
+
+/* ── TESTIMONIALS ── */
+.testi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
 </style>
 </head>
 <body>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-accent"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-glow"></div>
   <div class="hero-content">
-    <div class="hero-badge">⚙ Trusted Infra Partner in Tamil Nadu</div>
-    <h1>
-      <div>WE BUILD</div>
-      <div class="line2">LEGENDS</div>
-      <div class="line3">IN STEEL</div>
-    </h1>
-    <p class="hero-sub">Premium decor fabrication, structural interiors, and expert borewell drilling. Quality workmanship trusted by 50+ clients across Tamil Nadu.</p>
+    <div class="hero-badge">⚙ Trusted Infra Partner · Tamil Nadu</div>
+    <h1>We Build<br><em>Legends</em><br>In Steel</h1>
+    <p class="hero-sub">Premium decor fabrication, interior fit-outs, and expert borewell solutions — trusted by clients across Chennai, Coimbatore, Trichy and Tirunelveli.</p>
     <div class="hero-btns">
-      <a href="portfolio.html" class="btn-gold">View Our Work</a>
-      <a href="contact.html" class="btn-outline">Get Free Quote</a>
+      <a href="portfolio.html" class="btn-brass">View Our Work</a>
+      <a href="contact.html" class="btn-hero-outline">Get Free Quote</a>
     </div>
     <div class="hero-stats">
-      <div class="stat-item"><div class="num">150+</div><div class="lbl">Projects Done</div></div>
-      <div class="stat-item"><div class="num">8+</div><div class="lbl">Years Experience</div></div>
-      <div class="stat-item"><div class="num">50+</div><div class="lbl">Happy Clients</div></div>
-      <div class="stat-item"><div class="num">3</div><div class="lbl">Districts Covered</div></div>
+      <div class="hero-stat"><div class="num">150+</div><div class="lbl">Projects Done</div></div>
+      <div class="hero-stat"><div class="num">8+</div><div class="lbl">Years Active</div></div>
+      <div class="hero-stat"><div class="num">50+</div><div class="lbl">Happy Clients</div></div>
+      <div class="hero-stat"><div class="num">4</div><div class="lbl">Branch Cities</div></div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES STRIP -->
-<div class="services-strip reveal">
-  <div class="section-label">What We Do</div>
-  <div class="section-title" style="margin-bottom:2rem">OUR <span>SERVICES</span></div>
-  <div class="strip-grid">
-    <div class="strip-card">
-      <div class="strip-icon">🏗️</div>
-      <h3>Decor Fabrication</h3>
-      <p>Custom steel & aluminum structures — gates, railings, grills, pergolas, and designer metalwork for homes and businesses.</p>
-      <a href="services.html#fabrication" class="strip-more">Learn More →</a>
-    </div>
-    <div class="strip-card">
-      <div class="strip-icon">🎨</div>
-      <h3>Interior Fit-Out</h3>
-      <p>False ceilings, wall panels, partitions, and modular structures. Modern aesthetics built with precision fabrication.</p>
-      <a href="services.html#interior" class="strip-more">Learn More →</a>
-    </div>
-    <div class="strip-card">
-      <div class="strip-icon">💧</div>
-      <h3>Borewell Drilling</h3>
-      <p>Full-service borewell solutions — site survey, drilling, casing, pump installation and yield testing.</p>
-      <a href="services.html#borewell" class="strip-more">Learn More →</a>
-    </div>
-    <div class="strip-card">
-      <div class="strip-icon">🔧</div>
-      <h3>Borewell Maintenance</h3>
-      <p>Pump servicing, flushing, compressor work, and borewell revival for better yield and longer life.</p>
-      <a href="services.html#maintenance" class="strip-more">Learn More →</a>
-    </div>
+<!-- INTRO STRIP -->
+<div class="intro-strip reveal">
+  <p>From ornate fabrication to deep borewell drilling — we handle your entire infra requirement with quality materials, honest pricing, and on-time delivery.</p>
+  <div class="badge-row">
+    <span class="badge">Free Site Visit</span>
+    <span class="badge">Written Quotes</span>
+    <span class="badge">1-Year Warranty</span>
+    <span class="badge">24/7 Emergency</span>
   </div>
 </div>
 
-<!-- RECENT WORK -->
-<section>
+<!-- SERVICES -->
+<section style="background:#fff;">
   <div class="reveal">
-    <div class="section-label">Portfolio</div>
-    <div class="section-title">RECENT <span>WORK</span></div>
+    <div class="section-label">What We Do</div>
+    <div class="section-title">Our <em>Services</em></div>
     <div class="divider"></div>
   </div>
-  <div class="work-grid reveal" id="recentWork"></div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-icon">🏗️</div>
+      <h3>Decor Fabrication</h3>
+      <p>Custom steel & aluminium structures — gates, railings, grills, pergolas, and designer metalwork for homes and businesses.</p>
+      <a href="services.html#fabrication">Learn More →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎨</div>
+      <h3>Interior Fit-Out</h3>
+      <p>False ceilings, wall panels, partitions, and modular structures. Modern aesthetics built with precision fabrication.</p>
+      <a href="services.html#interior">Learn More →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💧</div>
+      <h3>Borewell Drilling</h3>
+      <p>Full-service borewell solutions — site survey, drilling, casing, pump installation and yield testing.</p>
+      <a href="services.html#borewell">Learn More →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔧</div>
+      <h3>Borewell Maintenance</h3>
+      <p>Pump servicing, flushing, compressor work, and borewell revival. Same-day emergency response available.</p>
+      <a href="services.html#maintenance">Learn More →</a>
+    </div>
+  </div>
+</section>
+
+<!-- RECENT WORK -->
+<section class="work-preview-wrap">
+  <div class="reveal">
+    <div class="section-label">Portfolio</div>
+    <div class="section-title">Recent <em>Work</em></div>
+    <div class="divider"></div>
+  </div>
+  <div class="work-grid reveal" id="recentWork">
+    <div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--text-l);font-size:.9rem">Loading projects...</div>
+  </div>
   <div style="text-align:center;margin-top:2.5rem" class="reveal">
     <a href="portfolio.html" class="btn-outline">See All Projects →</a>
   </div>
 </section>
 
+<!-- INSTAGRAM FEED -->
+<section class="insta-section">
+  <div class="insta-header reveal">
+    <div>
+      <div class="section-label">Instagram</div>
+      <div class="section-title">Follow Our <em>Work</em></div>
+    </div>
+    <a href="https://www.instagram.com/legendsinfra/" target="_blank" class="btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      Follow @legendsinfra
+    </a>
+  </div>
+  <!-- Instagram embed note: Instagram's API requires OAuth for live feed.
+       This section links directly to your profile. For live posts, embed
+       an Instagram widget from embedsocial.com or behold.so (free tier). -->
+  <div class="reveal" style="background:var(--green-tint);border:1px solid var(--border);border-radius:6px;padding:3rem;text-align:center;">
+    <div style="font-size:3rem;margin-bottom:1rem">📸</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--green);margin-bottom:.5rem">See Our Latest Work on Instagram</div>
+    <p style="font-size:.88rem;color:var(--text-m);margin-bottom:1.5rem;max-width:420px;margin-left:auto;margin-right:auto">We post every completed project — gates, borewells, interiors and more. Follow us for real work, real results.</p>
+    <a href="https://www.instagram.com/legendsinfra/" target="_blank" class="btn-primary">Open Instagram →</a>
+  </div>
+</section>
+
 <!-- TESTIMONIALS -->
-<section class="testi-bg">
+<section style="background:var(--green-tint);">
   <div class="reveal">
     <div class="section-label">Client Reviews</div>
-    <div class="section-title">WHAT CLIENTS <span>SAY</span></div>
+    <div class="section-title">What Clients <em>Say</em></div>
     <div class="divider"></div>
   </div>
   <div class="testi-grid reveal">
     <div class="testi-card">
       <div class="testi-q">"</div>
-      <p class="testi-text">Legends Infra did an excellent job with our factory gate and compound railing. The finish was clean, delivery on time, and team was professional throughout.</p>
-      <div class="testi-author"><div class="testi-av">RK</div><div><div class="testi-name">Ramesh Kumar</div><div class="testi-loc">Factory Owner, Chennai</div></div></div>
+      <p class="testi-text">Legends Infra did an excellent job with our factory gate and compound railing. The finish was clean, delivery on time, and the team was professional throughout.</p>
+      <div style="margin-top:1rem"><div class="testi-name">Ramesh Kumar</div><div class="testi-loc">Factory Owner, Chennai</div></div>
     </div>
     <div class="testi-card">
       <div class="testi-q">"</div>
       <p class="testi-text">We hired them for borewell drilling at our new site. They did a proper soil analysis and the water yield has been excellent. Very trustworthy team.</p>
-      <div class="testi-author"><div class="testi-av">SL</div><div><div class="testi-name">Suresh Lakshmanan</div><div class="testi-loc">Builder, Kanchipuram</div></div></div>
+      <div style="margin-top:1rem"><div class="testi-name">Suresh Lakshmanan</div><div class="testi-loc">Builder, Coimbatore</div></div>
     </div>
     <div class="testi-card">
       <div class="testi-q">"</div>
       <p class="testi-text">The false ceiling and metalwork for our showroom is exactly what we imagined. Great design sense and very fair pricing. Highly recommended!</p>
-      <div class="testi-author"><div class="testi-av">PM</div><div><div class="testi-name">Priya Muthu</div><div class="testi-loc">Showroom Owner, Tambaram</div></div></div>
+      <div style="margin-top:1rem"><div class="testi-name">Priya Muthu</div><div class="testi-loc">Showroom Owner, Tambaram</div></div>
     </div>
   </div>
 </section>
 
-<!-- CTA BAND -->
+<!-- CTA -->
 <div class="cta-band reveal">
   <div>
-    <h2>READY TO START<br>YOUR <span>PROJECT?</span></h2>
+    <h2>Ready to Start<br>Your <em>Project?</em></h2>
     <p>Call us or drop a message — we'll get back within 24 hours.</p>
   </div>
   <div class="cta-btns">
-    <a href="tel:+919677029865" class="btn-gold">📞 Call Now</a>
-    <a href="contact.html" class="btn-outline">Send Enquiry</a>
+    <a href="tel:+919677029865" class="btn-brass">📞 Call Now</a>
+    <a href="contact.html" class="btn-hero-outline">Send Enquiry</a>
   </div>
 </div>
 
-<a href="https://wa.me/919677029865" class="wa-float" target="_blank" title="Chat on WhatsApp">💬</a>
+<a href="https://wa.me/919677029865" class="wa-float" target="_blank">💬</a>
 <div class="toast" id="toast"></div>
-
 <script src="shared.js"></script>
 <script>
+const SAMPLE_WORK = [
+  {title:'Industrial Factory Gate',category:'Fabrication',location:'Ambattur, Chennai',year:'2024',description:'Heavy-duty MS gates with anti-rust powder coating.',image:'',emoji:'🏗️'},
+  {title:'Corporate Office Fit-Out',category:'Interior',location:'OMR, Chennai',year:'2024',description:'False ceiling & glass partitions for 4000 sq.ft office.',image:'',emoji:'🎨'},
+  {title:'Residential Borewell',category:'Borewell',location:'Tambaram',year:'2024',description:'280 ft borewell with 1HP submersible pump.',image:'',emoji:'💧'},
+  {title:'Villa Entrance Gate',category:'Fabrication',location:'ECR, Chennai',year:'2023',description:'Designer gate with laser-cut floral patterns.',image:'',emoji:'🏠'},
+  {title:'Showroom Interior',category:'Interior',location:'Coimbatore',year:'2024',description:'Full interior fit-out for textile showroom.',image:'',emoji:'🎭'},
+  {title:'Agricultural Borewell',category:'Borewell',location:'Trichy',year:'2023',description:'400 ft borewell for farmland irrigation.',image:'',emoji:'⚙️'},
+];
+
 async function renderRecent() {
   const grid = document.getElementById('recentWork');
-  grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted);font-size:.9rem">Loading projects...</div>';
-  const posts = await getPosts();
-  const show = posts.slice(0, 6);
-  if (show.length === 0) {
-    const samples = [
-      {category:'Fabrication',emoji:'🏗️',title:'Industrial Factory Gate',location:'Ambattur',year:'2024',description:'Heavy-duty MS gates with anti-rust coating.'},
-      {category:'Interior',emoji:'🎨',title:'Office Interior Fit-Out',location:'OMR, Chennai',year:'2024',description:'False ceiling & partitions for 4000 sq.ft office.'},
-      {category:'Borewell',emoji:'💧',title:'Residential Borewell',location:'Tambaram',year:'2024',description:'280 ft borewell with 1HP submersible pump.'},
-    ];
-    grid.innerHTML = samples.map(s => `
-      <div class="work-card">
-        <div class="work-card-img-placeholder">${s.emoji}</div>
-        <div class="work-card-body">
-          <div class="work-cat-badge">${s.category}</div>
-          <h3>${s.title}</h3>
-          <p>${s.description}</p>
-          <div class="work-meta"><span>📍 <strong>${s.location}</strong></span><span>📅 <strong>${s.year}</strong></span></div>
-        </div>
-      </div>`).join('');
-    return;
-  }
-  grid.innerHTML = show.map(p => `
+  const media = await getCloudinaryMedia('work', 6);
+  const posts = media.length > 0
+    ? media.map((item, i) => ({ ...SAMPLE_WORK[i % SAMPLE_WORK.length], image: item.thumb, type: item.type }))
+    : SAMPLE_WORK;
+  grid.innerHTML = posts.slice(0, 6).map(p => {
+    const isVideo = p.type === 'video';
+    return `
     <div class="work-card">
-      ${p.image ? `<img class="work-card-img" src="${p.image}" alt="${p.title}" onerror="this.style.display='none'"/>` : `<div class="work-card-img-placeholder">🏗️</div>`}
+      ${p.image
+        ? `<div style="position:relative;">
+             <img class="work-card-img" src="${p.image}" alt="${p.title}" loading="lazy" onerror="this.style.display='none'"/>
+             ${isVideo ? `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+               <div style="width:44px;height:44px;background:rgba(27,58,44,.75);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                 <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+               </div></div>` : ''}
+           </div>`
+        : `<div class="work-card-img-placeholder">${isVideo ? '🎥' : (p.emoji||'🏗️')}</div>`}
       <div class="work-card-body">
         <div class="work-cat-badge">${p.category}</div>
         <h3>${p.title}</h3>
         <p>${p.description}</p>
         <div class="work-meta"><span>📍 <strong>${p.location}</strong></span><span>📅 <strong>${p.year}</strong></span></div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
-renderRecent();
+
+document.addEventListener('DOMContentLoaded', renderRecent);
 </script>
 </body>
 </html>

@@ -5,75 +5,46 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Our Work – Legends Infra</title>
 <link rel="stylesheet" href="style.css"/>
-<style>
-.filters { display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2.5rem; }
-.filter-btn { background:transparent;border:1px solid var(--border);color:var(--muted);padding:.45rem 1.1rem;border-radius:2px;font-size:.8rem;cursor:pointer;transition:all .3s;font-family:'DM Sans',sans-serif;letter-spacing:.3px; }
-.filter-btn.active,.filter-btn:hover { background:var(--gold);color:var(--dark);border-color:var(--gold);font-weight:700; }
-.work-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem; }
-.work-card { background:var(--dark3);border:1px solid rgba(201,168,76,.08);border-radius:4px;overflow:hidden;transition:transform .3s,border-color .3s;cursor:pointer; }
-.work-card:hover { transform:translateY(-5px);border-color:rgba(201,168,76,.3); }
-.work-card-img { width:100%;height:210px;object-fit:cover;display:block;background:var(--dark4); }
-.work-card-img-placeholder { width:100%;height:210px;background:var(--dark4);display:flex;align-items:center;justify-content:center;font-size:3.5rem; }
-.work-card-body { padding:1.3rem; }
-.work-cat-badge { display:inline-block;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);color:var(--gold);font-size:.67rem;font-weight:700;padding:.2rem .6rem;border-radius:2px;letter-spacing:1px;text-transform:uppercase;margin-bottom:.6rem; }
-.work-card-body h3 { font-size:.95rem;font-weight:600;margin-bottom:.35rem; }
-.work-card-body p { font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:.8rem; }
-.work-meta { display:flex;gap:1.2rem; }
-.work-meta span { font-size:.74rem;color:var(--muted); }
-.work-meta strong { color:var(--gold-l); }
-.empty-state { text-align:center;padding:5rem 1rem;color:var(--muted);grid-column:1/-1; }
-.empty-state .icon { font-size:3rem;margin-bottom:1rem; }
-.empty-state h3 { font-size:1.1rem;color:var(--text);margin-bottom:.5rem; }
-.empty-state p { font-size:.85rem;max-width:360px;margin:0 auto 1.5rem; }
-
-/* LIGHTBOX */
-.lightbox { position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:2rem; }
-.lightbox.open { display:flex; }
-.lb-inner { max-width:700px;width:100%;background:var(--dark2);border:1px solid var(--border);border-radius:6px;overflow:hidden; }
-.lb-img { width:100%;max-height:420px;object-fit:cover;display:block;background:var(--dark3); }
-.lb-img-placeholder { height:280px;background:var(--dark3);display:flex;align-items:center;justify-content:center;font-size:5rem; }
-.lb-body { padding:2rem; }
-.lb-cat { display:inline-block;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);color:var(--gold);font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:2px;letter-spacing:1px;text-transform:uppercase;margin-bottom:.8rem; }
-.lb-body h2 { font-family:'Bebas Neue',sans-serif;font-size:1.8rem;margin-bottom:.5rem; }
-.lb-body p { font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:1rem; }
-.lb-meta { display:flex;gap:2rem;font-size:.82rem; }
-.lb-meta span { color:var(--muted); }
-.lb-meta strong { color:var(--gold); }
-.lb-close { position:absolute;top:1rem;right:1rem;background:var(--dark3);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:background .3s; }
-.lb-close:hover { background:var(--dark4); }
-.lightbox { position:relative; }
-</style>
 </head>
 <body>
 
 <div class="page-banner">
   <div class="page-banner-content reveal">
     <div class="breadcrumb"><a href="index.html">Home</a> / Our Work</div>
-    <h1>OUR <span>WORK</span></h1>
-    <p>Every project in our portfolio is a story of quality, precision, and client trust.</p>
+    <h1>Our <em>Work</em></h1>
+    <p>Every project is a story of quality, precision, and client trust.</p>
   </div>
 </div>
 
 <section>
   <div class="reveal">
     <div class="section-label">Portfolio</div>
-    <div class="section-title">ALL <span>PROJECTS</span></div>
+    <div class="section-title">All <em>Projects</em></div>
     <div class="divider"></div>
-    <div class="filters" id="filterBar">
-      <button class="filter-btn active" onclick="filterWork('all',this)">All</button>
-      <button class="filter-btn" onclick="filterWork('Fabrication',this)">Fabrication</button>
-      <button class="filter-btn" onclick="filterWork('Interior',this)">Interior</button>
-      <button class="filter-btn" onclick="filterWork('Borewell',this)">Borewell</button>
-      <button class="filter-btn" onclick="filterWork('Maintenance',this)">Maintenance</button>
-      <button class="filter-btn" onclick="filterWork('Commercial',this)">Commercial</button>
-      <button class="filter-btn" onclick="filterWork('Residential',this)">Residential</button>
-    </div>
+    <p style="font-size:.88rem;color:var(--text-l);margin-bottom:2rem;max-width:500px">Browse our completed projects below. Images are updated directly from our Cloudinary gallery — so this is always current.</p>
   </div>
-  <div class="work-grid" id="workGrid"></div>
+  <div class="work-grid" id="workGrid">
+    <div class="empty-state"><div class="icon">⏳</div><h3>Loading Projects...</h3></div>
+  </div>
+  <div id="loadMoreWrap" style="text-align:center;margin-top:2.5rem;display:none;">
+    <button onclick="loadMore()" class="btn-outline" style="border:none;cursor:pointer;font-family:'Jost',sans-serif">Load More Projects</button>
+  </div>
 </section>
 
+<!-- CTA -->
+<div class="cta-band reveal">
+  <div>
+    <h2>Like What<br>You <em>See?</em></h2>
+    <p>Let's discuss your project — free consultation, zero pressure.</p>
+  </div>
+  <div class="cta-btns">
+    <a href="tel:+919677029865" class="btn-brass">📞 Call Now</a>
+    <a href="contact.html" class="btn-hero-outline">Send Enquiry</a>
+  </div>
+</div>
+
 <!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeLB(event)">
+<div class="lightbox" id="lightbox" onclick="closeLBOutside(event)">
   <button class="lb-close" onclick="closeLightbox()">✕</button>
   <div class="lb-inner" id="lbInner"></div>
 </div>
@@ -82,73 +53,103 @@
 <script src="shared.js"></script>
 <script>
 const SAMPLE_POSTS = [
-  {id:'s1',category:'Fabrication',emoji:'🏗️',title:'Industrial Factory Gate',location:'Ambattur, Chennai',year:'2024',description:'Heavy-duty MS steel gates with anti-rust powder coating for a large manufacturing unit. Includes motorised sliding gate system.',image:''},
-  {id:'s2',category:'Interior',emoji:'🎨',title:'Corporate Office Fit-Out',location:'OMR, Chennai',year:'2024',description:'False ceiling, glass partitions, and metalwork for a 4000 sq.ft office space. Complete turnkey interior.',image:''},
-  {id:'s3',category:'Borewell',emoji:'💧',title:'Residential Borewell',location:'Tambaram',year:'2024',description:'280 ft borewell with 1HP submersible pump. 3000 LPH yield achieved. Includes pump house and wiring.',image:''},
-  {id:'s4',category:'Fabrication',emoji:'🔩',title:'SS Staircase Railing',location:'Velachery, Chennai',year:'2023',description:'SS 304 staircase railings with toughened glass infill panels for a 3-storey residence.',image:''},
-  {id:'s5',category:'Borewell',emoji:'⚙️',title:'Agricultural Borewell',location:'Kanchipuram',year:'2023',description:'400 ft borewell for farmland irrigation. Includes 2HP motor and pump house construction.',image:''},
-  {id:'s6',category:'Interior',emoji:'🎭',title:'Showroom Interior Decor',location:'Chengalpattu',year:'2023',description:'Ceiling grid, lighting track fabrication, and custom display rack structures for a textile showroom.',image:''},
-  {id:'s7',category:'Fabrication',emoji:'🏠',title:'Villa Entrance Gate',location:'ECR, Chennai',year:'2023',description:'Designer villa entrance gate with laser-cut floral patterns and gold powder coating finish.',image:''},
-  {id:'s8',category:'Maintenance',emoji:'🔧',title:'Borewell Revival',location:'Perumbakkam',year:'2024',description:'Flushing and yield restoration for a 10-year old borewell. Pump replaced and yield improved by 60%.',image:''},
-  {id:'s9',category:'Commercial',emoji:'🏢',title:'Warehouse Roofing',location:'Sriperumbudur',year:'2024',description:'Industrial roofing sheet installation with purlins and structural framework for a 12,000 sq.ft warehouse.',image:''},
+  {id:'s1',title:'Industrial Factory Gate',category:'Fabrication',location:'Ambattur, Chennai',year:'2024',description:'Heavy-duty MS steel gates with anti-rust powder coating for a large manufacturing unit.',image:'',emoji:'🏗️'},
+  {id:'s2',title:'Corporate Office Fit-Out',category:'Interior',location:'OMR, Chennai',year:'2024',description:'False ceiling, glass partitions, and metalwork for a 4000 sq.ft office space.',image:'',emoji:'🎨'},
+  {id:'s3',title:'Residential Borewell',category:'Borewell',location:'Tambaram',year:'2024',description:'280 ft borewell with 1HP submersible pump. 3000 LPH yield achieved.',image:'',emoji:'💧'},
+  {id:'s4',title:'SS Staircase Railing',category:'Fabrication',location:'Velachery, Chennai',year:'2023',description:'SS 304 staircase railings with toughened glass infill panels for a 3-storey residence.',image:'',emoji:'🔩'},
+  {id:'s5',title:'Agricultural Borewell',category:'Borewell',location:'Trichy',year:'2023',description:'400 ft borewell for farmland irrigation. Includes 2HP motor and pump house.',image:'',emoji:'⚙️'},
+  {id:'s6',title:'Showroom Interior Decor',category:'Interior',location:'Coimbatore',year:'2023',description:'Ceiling grid, lighting track fabrication, and custom display rack structures.',image:'',emoji:'🎭'},
+  {id:'s7',title:'Villa Entrance Gate',category:'Fabrication',location:'ECR, Chennai',year:'2023',description:'Designer villa entrance gate with laser-cut floral patterns and gold powder coating.',image:'',emoji:'🏠'},
+  {id:'s8',title:'Borewell Revival',category:'Maintenance',location:'Perumbakkam',year:'2024',description:'Flushing and yield restoration for a 10-year old borewell. Yield improved by 60%.',image:'',emoji:'🔧'},
+  {id:'s9',title:'Warehouse Roofing',category:'Commercial',location:'Sriperumbudur',year:'2024',description:'Industrial roofing sheet installation with purlins for a 12,000 sq.ft warehouse.',image:'',emoji:'🏢'},
 ];
 
+const PAGE_SIZE = 9;
 let allPosts = [];
-let currentFilter = 'all';
+let shown = 0;
 
 async function loadPosts() {
   const grid = document.getElementById('workGrid');
-  grid.innerHTML = '<div class="empty-state"><div class="icon">⏳</div><h3>Loading projects...</h3><p>Fetching latest work from our portfolio.</p></div>';
-  const fetched = await getPosts();
-  allPosts = fetched.length > 0 ? fetched : SAMPLE_POSTS;
-  renderGrid(currentFilter);
+  const media = await getCloudinaryMedia('work', 100);
+  if (media.length > 0) {
+    allPosts = media.map((item, i) => {
+      const sample = SAMPLE_POSTS[i % SAMPLE_POSTS.length];
+      return { ...sample, id: item.id, image: item.thumb, fullUrl: item.url, type: item.type };
+    });
+  } else {
+    allPosts = SAMPLE_POSTS;
+  }
+  shown = 0;
+  grid.innerHTML = '';
+  renderBatch();
 }
 
-function renderGrid(filter) {
+function renderBatch() {
   const grid = document.getElementById('workGrid');
-  const filtered = filter === 'all' ? allPosts : allPosts.filter(p => p.category === filter);
-  if (filtered.length === 0) {
-    grid.innerHTML = `<div class="empty-state"><div class="icon">📂</div><h3>No projects in this category yet</h3><p>Check back soon or view all projects.</p><button class="filter-btn active" onclick="filterWork('all', document.querySelector('.filter-btn'))">View All</button></div>`;
+  const batch = allPosts.slice(shown, shown + PAGE_SIZE);
+  if (batch.length === 0 && shown === 0) {
+    grid.innerHTML = `<div class="empty-state"><div class="icon">📂</div><h3>No projects yet</h3><p>Check back soon.</p></div>`;
     return;
   }
-  grid.innerHTML = filtered.map(p => `
-    <div class="work-card" onclick="openLB('${p.id || p.title}')">
-      ${p.image ? `<img class="work-card-img" src="${p.image}" alt="${p.title}" onerror="this.outerHTML='<div class=\\'work-card-img-placeholder\\'>🏗️</div>'"/>` : `<div class="work-card-img-placeholder">${p.emoji||'🏗️'}</div>`}
+  batch.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'work-card';
+    card.style.cursor = 'pointer';
+    card.onclick = () => openLB(p);
+
+    const isVideo = p.type === 'video';
+    const mediaHtml = p.image
+      ? `<div style="position:relative;">
+           <img class="work-card-img" src="${p.image}" alt="${p.title}" loading="lazy"
+             onerror="this.outerHTML='<div class=\\'work-card-img-placeholder\\'>${p.emoji||'🏗️'}</div>'"/>
+           ${isVideo ? `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+             <div style="width:48px;height:48px;background:rgba(27,58,44,.75);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+               <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+             </div></div>` : ''}
+         </div>`
+      : `<div class="work-card-img-placeholder">${isVideo ? '🎥' : (p.emoji||'🏗️')}</div>`;
+
+    card.innerHTML = `
+      ${mediaHtml}
       <div class="work-card-body">
-        <div class="work-cat-badge">${p.category}</div>
+        <div class="work-cat-badge">${isVideo ? '🎥 Video' : p.category}</div>
         <h3>${p.title}</h3>
         <p>${p.description}</p>
         <div class="work-meta"><span>📍 <strong>${p.location}</strong></span><span>📅 <strong>${p.year}</strong></span></div>
-      </div>
-    </div>`).join('');
+      </div>`;
+    grid.appendChild(card);
+  });
+  shown += batch.length;
+  document.getElementById('loadMoreWrap').style.display = shown < allPosts.length ? 'block' : 'none';
 }
 
-function filterWork(cat, btn) {
-  currentFilter = cat;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderGrid(cat);
-}
+function loadMore() { renderBatch(); }
 
-function openLB(id) {
-  const p = allPosts.find(x => (x.id||x.title) === id);
-  if (!p) return;
-  const lb = document.getElementById('lightbox');
+function openLB(p) {
+  const isVideo = p.type === 'video';
   document.getElementById('lbInner').innerHTML = `
-    ${p.image ? `<img class="lb-img" src="${p.image}" alt="${p.title}" onerror="this.outerHTML='<div class=\\'lb-img-placeholder\\'>${p.emoji||'🏗️'}</div>'"/>` : `<div class="lb-img-placeholder">${p.emoji||'🏗️'}</div>`}
+    ${isVideo
+      ? `<video class="lb-img" src="${p.fullUrl}" controls autoplay playsinline style="background:#000;max-height:420px;"></video>`
+      : p.image
+        ? `<img class="lb-img" src="${p.fullUrl || p.image}" alt="${p.title}" onerror="this.outerHTML='<div class=\\'lb-img-placeholder\\'>${p.emoji||'🏗️'}</div>'"/>`
+        : `<div class="lb-img-placeholder">${p.emoji||'🏗️'}</div>`}
     <div class="lb-body">
-      <div class="lb-cat">${p.category}</div>
+      <div class="lb-cat">${isVideo ? '🎥 Video' : p.category}</div>
       <h2>${p.title}</h2>
       <p>${p.description}</p>
       <div class="lb-meta"><span>📍 <strong>${p.location}</strong></span><span>📅 <strong>${p.year}</strong></span></div>
     </div>`;
-  lb.classList.add('open');
+  document.getElementById('lightbox').classList.add('open');
 }
+function closeLightbox() {
+  // Pause video when closing
+  const v = document.querySelector('#lbInner video');
+  if (v) v.pause();
+  document.getElementById('lightbox').classList.remove('open');
+}
+function closeLBOutside(e) { if (e.target === document.getElementById('lightbox')) closeLightbox(); }
 
-function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
-function closeLB(e) { if (e.target === document.getElementById('lightbox')) closeLightbox(); }
-
-loadPosts();
+document.addEventListener('DOMContentLoaded', loadPosts);
 </script>
 </body>
 </html>
