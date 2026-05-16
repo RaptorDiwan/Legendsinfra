@@ -87,9 +87,9 @@
   <div class="media-grid" id="mediaGrid">
     <div class="loading-state">Loading projects...</div>
   </div>
-  <div id="loadMoreWrap" style="text-align:center;margin-top:2rem;display:none;">
-    <button onclick="loadMore()" style="background:var(--green);color:#fff;border:none;padding:.85rem 2.5rem;border-radius:2px;font-family:'Jost',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;">Load More</button>
-  </div>
+  <!-- infinite scroll sentinel -->
+  <div id="scrollSentinel" style="height:40px;margin-top:1rem;"></div>
+  <div id="loadingMore" style="text-align:center;padding:1rem;color:var(--text-l);font-size:.85rem;display:none;">Loading more...</div>
 </section>
 
 <div class="cta-band reveal">
@@ -135,6 +135,7 @@ async function loadPosts() {
   shown = 0;
   document.getElementById('mediaGrid').innerHTML = '';
   renderBatch();
+  setupInfiniteScroll();
 }
 
 function renderBatch() {
@@ -159,10 +160,21 @@ function renderBatch() {
     grid.appendChild(card);
   });
   shown += batch.length;
-  document.getElementById('loadMoreWrap').style.display = shown < allMedia.length ? 'block' : 'none';
 }
 
-function loadMore() { renderBatch(); }
+// ── INFINITE SCROLL ──
+function setupInfiniteScroll() {
+  const sentinel = document.getElementById('scrollSentinel');
+  const loader   = document.getElementById('loadingMore');
+  if (!sentinel) return;
+  const obs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && shown < allMedia.length) {
+      loader.style.display = 'block';
+      setTimeout(() => { renderBatch(); loader.style.display = 'none'; }, 300);
+    }
+  }, { rootMargin: '200px' });
+  obs.observe(sentinel);
+}
 
 function openLB(index) {
   currentIndex = index;

@@ -156,22 +156,86 @@
   <div class="insta-header reveal">
     <div>
       <div class="section-label">Instagram</div>
-      <div class="section-title">Follow Our <em>Work</em></div>
+      <div class="section-title">Latest on <em>Instagram</em></div>
     </div>
-    <a href="https://www.instagram.com/legendsinfra/" target="_blank" class="btn-primary">
+    <a href="https://www.instagram.com/legendsinfra/" target="_blank" class="btn-primary" style="display:inline-flex;align-items:center;gap:.5rem;">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
       Follow @legendsinfra
     </a>
   </div>
-  <!-- Instagram embed note: Instagram's API requires OAuth for live feed.
-       This section links directly to your profile. For live posts, embed
-       an Instagram widget from embedsocial.com or behold.so (free tier). -->
-  <div class="reveal" style="background:var(--green-tint);border:1px solid var(--border);border-radius:6px;padding:3rem;text-align:center;">
-    <div style="font-size:3rem;margin-bottom:1rem">📸</div>
-    <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--green);margin-bottom:.5rem">See Our Latest Work on Instagram</div>
-    <p style="font-size:.88rem;color:var(--text-m);margin-bottom:1.5rem;max-width:420px;margin-left:auto;margin-right:auto">We post every completed project — gates, borewells, interiors and more. Follow us for real work, real results.</p>
-    <a href="https://www.instagram.com/legendsinfra/" target="_blank" class="btn-primary">Open Instagram →</a>
+
+  <!-- ══════════════════════════════════════════════════════════
+       INSTAGRAM EMBED — swap the div below with your Behold widget
+       Steps:
+       1. Go to behold.so → sign up free → connect @legendsinfra
+       2. Create a feed → copy the embed code
+       3. Replace the div below with that embed code
+  ══════════════════════════════════════════════════════════ -->
+
+  <div class="reveal" id="instaFeedWrap">
+
+    <!-- Behold embed goes here — replace this entire block -->
+    <div style="position:relative;">
+      <!-- SLIDER TRACK -->
+      <div id="instaTrack" style="display:flex;gap:12px;overflow:hidden;scroll-behavior:smooth;border-radius:6px;"></div>
+
+      <!-- ARROWS -->
+      <button onclick="slideInsta(-1)" style="position:absolute;left:-18px;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;color:var(--green);z-index:2;">‹</button>
+      <button onclick="slideInsta(1)"  style="position:absolute;right:-18px;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;color:var(--green);z-index:2;">›</button>
+    </div>
+
+    <!-- fallback if no embed yet -->
+    <div id="instaFallback" style="background:var(--green-tint);border:1px solid var(--border);border-radius:6px;padding:2.5rem;text-align:center;margin-top:1rem;">
+      <div style="font-size:2.5rem;margin-bottom:.8rem">📸</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--green);margin-bottom:.4rem">@legendsinfra on Instagram</div>
+      <p style="font-size:.84rem;color:var(--text-m);margin-bottom:1.2rem;max-width:380px;margin-left:auto;margin-right:auto;">We post every completed project — gates, borewells, interiors and more.</p>
+      <a href="https://www.instagram.com/legendsinfra/" target="_blank" class="btn-primary">View Our Posts →</a>
+    </div>
+
   </div>
+
+  <script>
+  // Behold.so auto-inject — once you add the embed, remove the fallback div
+  // For now, pre-fill the slider with Cloudinary work images as a live preview
+  (async () => {
+    const track = document.getElementById('instaTrack');
+    const fallback = document.getElementById('instaFallback');
+    const media = await getCloudinaryMedia('work', 20);
+    if (media.length === 0) { track.style.display='none'; return; }
+    fallback.style.display = 'none';
+    media.forEach(item => {
+      const slide = document.createElement('a');
+      slide.href = 'https://www.instagram.com/legendsinfra/';
+      slide.target = '_blank';
+      slide.style.cssText = 'flex:0 0 calc(100%/4 - 9px);border-radius:6px;overflow:hidden;aspect-ratio:1;display:block;background:var(--green-pale);position:relative;';
+      if (item.type === 'video') {
+        slide.innerHTML = `<img src="${item.thumb}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"/>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(27,58,44,.2)">
+            <div style="width:38px;height:38px;background:rgba(27,58,44,.75);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+            </div></div>`;
+      } else {
+        slide.innerHTML = `<img src="${item.thumb}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"/>`;
+      }
+      track.appendChild(slide);
+    });
+
+    // auto-scroll every 3s
+    let autoTimer = setInterval(() => slideInsta(1), 3000);
+    track.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    track.addEventListener('mouseleave', () => { autoTimer = setInterval(() => slideInsta(1), 3000); });
+  })();
+
+  function slideInsta(dir) {
+    const track = document.getElementById('instaTrack');
+    const slideW = track.firstElementChild ? track.firstElementChild.offsetWidth + 12 : 0;
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    let next = track.scrollLeft + dir * slideW;
+    if (next > maxScroll) next = 0;
+    if (next < 0) next = maxScroll;
+    track.scrollTo({ left: next, behavior: 'smooth' });
+  }
+  </script>
 </section>
 
 <!-- TESTIMONIALS -->
@@ -218,12 +282,12 @@
 <script>
 async function renderRecent() {
   const grid = document.getElementById('recentWork');
-  const media = await getCloudinaryMedia('work', 6);
+  const media = await getCloudinaryMedia('work', 9);
   if (media.length === 0) {
     grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--text-l)">Projects coming soon...</div>';
     return;
   }
-  grid.innerHTML = media.slice(0, 6).map(item => {
+  grid.innerHTML = media.slice(0, 9).map(item => {
     const isVideo = item.type === 'video';
     return `
       <div style="position:relative;overflow:hidden;border-radius:4px;background:var(--green-pale);aspect-ratio:4/3;cursor:pointer" onclick="window.location='portfolio.html'">
