@@ -65,6 +65,20 @@
 
 /* ── TESTIMONIALS ── */
 .testi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
+
+/* ── EmbedSocial overrides ── */
+/* Hide "Get Started" button and branding */
+.es-widget-branding,
+.feed-powered-by-es,
+[class*="powered-by-es"],
+[class*="es-branding"],
+[class*="getStarted"],
+[class*="get-started"],
+a[href*="embedsocial.com"] { display:none !important; }
+
+/* Hide any button inside the embed that links to embedsocial */
+.embedsocial-hashtag a[href*="embedsocial"],
+.embedsocial-hashtag a[href*="get-started"] { display:none !important; }
 </style>
 </head>
 <body>
@@ -173,69 +187,21 @@
   ══════════════════════════════════════════════════════════ -->
 
   <div class="reveal" id="instaFeedWrap">
-
-    <!-- Behold embed goes here — replace this entire block -->
-    <div style="position:relative;">
-      <!-- SLIDER TRACK -->
-      <div id="instaTrack" style="display:flex;gap:12px;overflow:hidden;scroll-behavior:smooth;border-radius:6px;"></div>
-
-      <!-- ARROWS -->
-      <button onclick="slideInsta(-1)" style="position:absolute;left:-18px;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;color:var(--green);z-index:2;">‹</button>
-      <button onclick="slideInsta(1)"  style="position:absolute;right:-18px;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;color:var(--green);z-index:2;">›</button>
+    <div class="embedsocial-hashtag" data-ref="92eaddebb51141ce59e9558395345866dd099687">
+      <a class="feed-powered-by-es feed-powered-by-es-feed-img es-widget-branding" href="https://embedsocial.com/instagram-widget/" target="_blank" title="Instagram widget">
+        <img src="https://embedsocial.com/cdn/icon/embedsocial-logo.webp" alt="EmbedSocial">
+        <div class="es-widget-branding-text">Instagram widget</div>
+      </a>
     </div>
-
-    <!-- fallback if no embed yet -->
-    <div id="instaFallback" style="background:var(--green-tint);border:1px solid var(--border);border-radius:6px;padding:2.5rem;text-align:center;margin-top:1rem;">
-      <div style="font-size:2.5rem;margin-bottom:.8rem">📸</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--green);margin-bottom:.4rem">@legendsinfra on Instagram</div>
-      <p style="font-size:.84rem;color:var(--text-m);margin-bottom:1.2rem;max-width:380px;margin-left:auto;margin-right:auto;">We post every completed project — gates, borewells, interiors and more.</p>
-      <a href="https://www.instagram.com/legendsinfra/" target="_blank" class="btn-primary">View Our Posts →</a>
-    </div>
-
+    <script>
+    (function(d, s, id) {
+      var js; if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "https://embedsocial.com/cdn/ht.js";
+      d.getElementsByTagName("head")[0].appendChild(js);
+    }(document, "script", "EmbedSocialHashtagScript"));
+    </script>
   </div>
-
-  <script>
-  // Behold.so auto-inject — once you add the embed, remove the fallback div
-  // For now, pre-fill the slider with Cloudinary work images as a live preview
-  (async () => {
-    const track = document.getElementById('instaTrack');
-    const fallback = document.getElementById('instaFallback');
-    const media = await getCloudinaryMedia('work', 20);
-    if (media.length === 0) { track.style.display='none'; return; }
-    fallback.style.display = 'none';
-    media.forEach(item => {
-      const slide = document.createElement('a');
-      slide.href = 'https://www.instagram.com/legendsinfra/';
-      slide.target = '_blank';
-      slide.style.cssText = 'flex:0 0 calc(100%/4 - 9px);border-radius:6px;overflow:hidden;aspect-ratio:1;display:block;background:var(--green-pale);position:relative;';
-      if (item.type === 'video') {
-        slide.innerHTML = `<img src="${item.thumb}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"/>
-          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(27,58,44,.2)">
-            <div style="width:38px;height:38px;background:rgba(27,58,44,.75);border-radius:50%;display:flex;align-items:center;justify-content:center;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
-            </div></div>`;
-      } else {
-        slide.innerHTML = `<img src="${item.thumb}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"/>`;
-      }
-      track.appendChild(slide);
-    });
-
-    // auto-scroll every 3s
-    let autoTimer = setInterval(() => slideInsta(1), 3000);
-    track.addEventListener('mouseenter', () => clearInterval(autoTimer));
-    track.addEventListener('mouseleave', () => { autoTimer = setInterval(() => slideInsta(1), 3000); });
-  })();
-
-  function slideInsta(dir) {
-    const track = document.getElementById('instaTrack');
-    const slideW = track.firstElementChild ? track.firstElementChild.offsetWidth + 12 : 0;
-    const maxScroll = track.scrollWidth - track.clientWidth;
-    let next = track.scrollLeft + dir * slideW;
-    if (next > maxScroll) next = 0;
-    if (next < 0) next = maxScroll;
-    track.scrollTo({ left: next, behavior: 'smooth' });
-  }
-  </script>
 </section>
 
 <!-- TESTIMONIALS -->
