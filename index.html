@@ -4,272 +4,2421 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Legends Infra – Decor Fabrication & Borewell Solutions, Tamil Nadu</title>
-<link rel="stylesheet" href="style.css"/>
+<meta name="description" content="Premium decor fabrication, interior fit-outs, and expert borewell solutions across Chennai, Coimbatore, Trichy and Tirunelveli."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap"/>
 <style>
-/* ── HERO ── */
-.hero {
-  min-height:100vh; display:flex; flex-direction:column; justify-content:center;
-  padding:8rem 5% 5rem; position:relative; overflow:hidden;
-  background:var(--green);
+/* ═══════════════════════════════════════════════════
+   LEGENDS INFRA — Single File SPA
+   Luxe · Slow · Premium Architecture Aesthetic
+   Forest Green + Brass + Warm White
+═══════════════════════════════════════════════════ */
+
+:root {
+  --green:      #1B3A2C;
+  --green-m:    #2A5240;
+  --green-l:    #3D7057;
+  --green-pale: #EBF2EE;
+  --green-tint: #F2F7F4;
+  --cream:      #FAF8F3;
+  --brass:      #B8945A;
+  --brass-l:    #D4AE78;
+  --text:       #1A1A1A;
+  --text-m:     #4A5568;
+  --text-l:     #718096;
+  --border:     #DDE5E0;
+  --shadow:     0 4px 24px rgba(27,58,44,.08);
+  --shadow-m:   0 12px 48px rgba(27,58,44,.14);
+  --shadow-l:   0 24px 72px rgba(27,58,44,.18);
 }
-.hero-texture {
-  position:absolute; inset:0; opacity:.04;
-  background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  background:var(--cream); color:var(--text);
+  font-family:'Jost',sans-serif;
+  overflow-x:hidden;
 }
-.hero-glow { position:absolute; right:-5%; top:10%; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle, rgba(184,148,90,.15) 0%, transparent 70%); }
-.hero-content { position:relative; z-index:2; max-width:780px; }
-.hero-badge {
+
+/* ─── PAGE LOADER ─────────────────────────────────────── */
+#loader {
+  position:fixed; inset:0; z-index:9999;
+  background:#0f2419;
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:2rem;
+  transition:opacity 1s ease, visibility 1s ease;
+}
+#loader.done { opacity:0; visibility:hidden; }
+
+/* SVG drawing lines */
+#houseSvg .draw {
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-dasharray:var(--len,2000);
+  stroke-dashoffset:var(--len,2000);
+}
+
+/* Ground */
+#l-ground   { --len:520; stroke:rgba(184,148,90,.35); stroke-width:1.5;
+              animation:draw 0.4s 0.1s ease forwards; }
+/* Foundation */
+#l-found    { --len:340; stroke:rgba(184,148,90,.55); stroke-width:2;
+              animation:draw 0.45s 0.4s ease forwards; }
+/* Main walls */
+#l-wall-l   { --len:200; stroke:#B8945A; stroke-width:2.5;
+              animation:draw 0.4s 0.75s ease forwards; }
+#l-wall-r   { --len:200; stroke:#B8945A; stroke-width:2.5;
+              animation:draw 0.4s 0.9s ease forwards; }
+#l-wall-top { --len:340; stroke:#B8945A; stroke-width:2.5;
+              animation:draw 0.35s 1.1s ease forwards; }
+/* Roof */
+#l-roof-l   { --len:280; stroke:#fff; stroke-width:2.5;
+              animation:draw 0.4s 1.35s ease forwards; }
+#l-roof-r   { --len:280; stroke:#fff; stroke-width:2.5;
+              animation:draw 0.4s 1.55s ease forwards; }
+#l-roof-ovh { --len:380; stroke:rgba(255,255,255,.35); stroke-width:1.5;
+              animation:draw 0.3s 1.8s ease forwards; }
+/* Chimney */
+#l-chim     { --len:220; stroke:#D4AE78; stroke-width:2;
+              animation:draw 0.3s 2.0s ease forwards; }
+/* Door */
+#l-door     { --len:320; stroke:rgba(184,148,90,.8); stroke-width:2;
+              animation:draw 0.35s 2.2s ease forwards; }
+/* Windows */
+#l-win-l    { --len:240; stroke:rgba(255,255,255,.6); stroke-width:1.8;
+              animation:draw 0.3s 2.45s ease forwards; }
+#l-win-r    { --len:240; stroke:rgba(255,255,255,.6); stroke-width:1.8;
+              animation:draw 0.3s 2.6s ease forwards; }
+/* Window crosses */
+#l-winx-l   { --len:120; stroke:rgba(255,255,255,.35); stroke-width:1;
+              animation:draw 0.2s 2.75s ease forwards; }
+#l-winx-r   { --len:120; stroke:rgba(255,255,255,.35); stroke-width:1;
+              animation:draw 0.2s 2.85s ease forwards; }
+/* Porch step */
+#l-step     { --len:180; stroke:rgba(184,148,90,.6); stroke-width:1.5;
+              animation:draw 0.25s 2.95s ease forwards; }
+/* Smoke puffs */
+#l-smoke    { --len:300; stroke:rgba(255,255,255,.2); stroke-width:1.5;
+              stroke-dasharray:6 8;
+              animation:draw 0.5s 3.1s ease forwards; }
+/* Trees */
+#l-tree-l   { --len:400; stroke:rgba(184,148,90,.45); stroke-width:1.5;
+              animation:draw 0.4s 3.3s ease forwards; }
+#l-tree-r   { --len:400; stroke:rgba(184,148,90,.45); stroke-width:1.5;
+              animation:draw 0.4s 3.45s ease forwards; }
+/* Stars / dots */
+#l-stars    { stroke:rgba(255,255,255,.3); stroke-width:1;
+              animation:loaderFade .6s 3.6s ease forwards; opacity:0; }
+
+@keyframes draw {
+  to { stroke-dashoffset:0; }
+}
+
+/* Logo below SVG */
+.loader-logo {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem; font-weight:600;
+  letter-spacing:6px; color:rgba(255,255,255,.7);
+  text-transform:uppercase;
+  opacity:0;
+  animation:loaderFade .8s 3.7s forwards;
+}
+.loader-logo span { color:var(--brass-l); }
+.loader-tagline {
+  font-size:.62rem; color:rgba(255,255,255,.3);
+  letter-spacing:3px; text-transform:uppercase;
+  opacity:0; margin-top:-.8rem;
+  animation:loaderFade .8s 3.9s forwards;
+}
+
+@keyframes loaderFade { to { opacity:1; } }
+
+/* ─── PROGRESS LINE ───────────────────────────────────── */
+#progressLine {
+  position:fixed; top:0; left:0; right:0;
+  height:2px; background:var(--brass);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .1s linear;
+  z-index:300; pointer-events:none;
+}
+
+/* ─── NAV ─────────────────────────────────────────────── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; gap:2rem;
+  padding:1rem 5%;
+  background:rgba(250,248,243,.0);
+  backdrop-filter:blur(0px);
+  border-bottom:1px solid transparent;
+  transition:background .6s ease, backdrop-filter .6s ease,
+             border-color .6s ease, box-shadow .6s ease,
+             padding .4s ease;
+}
+nav.scrolled {
+  background:rgba(250,248,243,.97);
+  backdrop-filter:blur(16px);
+  border-color:var(--border);
+  box-shadow:var(--shadow);
+  padding:.75rem 5%;
+}
+/* On dark hero pages, nav starts white */
+nav.dark-hero {
+  background:transparent;
+}
+nav.dark-hero:not(.scrolled) .nav-logo,
+nav.dark-hero:not(.scrolled) .nav-links a,
+nav.dark-hero:not(.scrolled) .hamburger {
+  color:rgba(255,255,255,.85);
+}
+nav.dark-hero:not(.scrolled) .nav-links a::after {
+  background:var(--brass-l);
+}
+nav.dark-hero:not(.scrolled) .nav-cta {
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.3);
+  color:#fff;
+}
+.nav-logo {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.35rem; font-weight:600; letter-spacing:4px;
+  color:var(--green); text-decoration:none; margin-right:auto;
+  text-transform:uppercase; transition:color .4s;
+}
+.nav-logo span { color:var(--brass); }
+.nav-links { display:flex; gap:2.2rem; list-style:none; }
+.nav-links a {
+  color:var(--text-m); text-decoration:none; font-size:.76rem;
+  font-weight:500; letter-spacing:1.2px; text-transform:uppercase;
+  transition:color .3s; position:relative; padding-bottom:2px;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:-2px; left:0; right:0;
+  height:1px; background:var(--brass); transform:scaleX(0);
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+  transform-origin:left;
+}
+.nav-links a:hover, .nav-links a.active { color:var(--green); }
+.nav-links a:hover::after, .nav-links a.active::after { transform:scaleX(1); }
+.nav-cta {
+  background:var(--green); color:#fff;
+  padding:.5rem 1.4rem; border-radius:2px;
+  font-size:.74rem; font-weight:600;
+  text-decoration:none; letter-spacing:1.2px; text-transform:uppercase;
+  transition:all .3s; border:1px solid transparent;
+  cursor:pointer;
+}
+.nav-cta:hover { background:var(--green-m); transform:translateY(-1px); box-shadow:var(--shadow); }
+.hamburger {
+  display:none; background:none; border:none;
+  color:var(--green); font-size:1.3rem; cursor:pointer;
+  margin-left:auto; transition:color .4s;
+  width:36px; height:36px;
+  flex-direction:column; justify-content:center; align-items:center; gap:5px;
+}
+.hamburger span {
+  display:block; width:22px; height:1.5px;
+  background:currentColor;
+  transition:transform .4s ease, opacity .3s;
+  transform-origin:center;
+}
+.hamburger.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity:0; }
+.hamburger.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
+
+/* ─── MOBILE NAV ──────────────────────────────────────── */
+.mobile-menu {
+  display:none;
+  position:fixed; top:0; left:0; right:0; bottom:0;
+  background:var(--green); z-index:190;
+  flex-direction:column; justify-content:center; align-items:center;
+  gap:2.5rem;
+  opacity:0; transform:translateY(-20px);
+  transition:opacity .5s ease, transform .5s ease;
+  pointer-events:none;
+}
+.mobile-menu.open {
+  display:flex; opacity:1; transform:translateY(0);
+  pointer-events:all;
+}
+.mobile-menu a {
+  font-family:'Cormorant Garamond',serif;
+  font-size:3rem; font-weight:300; color:#fff;
+  text-decoration:none; letter-spacing:2px;
+  transition:color .3s;
+  line-height:1;
+}
+.mobile-menu a:hover { color:var(--brass-l); }
+.mobile-menu .m-contact {
+  font-family:'Jost',sans-serif;
+  font-size:.78rem; color:rgba(255,255,255,.5);
+  letter-spacing:2px; text-transform:uppercase; margin-top:1rem;
+}
+
+/* ─── PAGES ───────────────────────────────────────────── */
+.page { display:none; }
+.page.active { display:block; }
+
+/* ─── ANIMATIONS ──────────────────────────────────────── */
+.reveal {
+  opacity:0; transform:translateY(32px);
+  transition:opacity .9s cubic-bezier(.4,0,.2,1),
+             transform .9s cubic-bezier(.4,0,.2,1);
+}
+.reveal.visible { opacity:1; transform:translateY(0); }
+.reveal-slow {
+  opacity:0; transform:translateY(20px);
+  transition:opacity 1.3s cubic-bezier(.4,0,.2,1),
+             transform 1.3s cubic-bezier(.4,0,.2,1);
+}
+.reveal-slow.visible { opacity:1; transform:translateY(0); }
+
+/* Stagger delays */
+.delay-1 { transition-delay:.1s; }
+.delay-2 { transition-delay:.2s; }
+.delay-3 { transition-delay:.3s; }
+.delay-4 { transition-delay:.4s; }
+.delay-5 { transition-delay:.5s; }
+.delay-6 { transition-delay:.6s; }
+
+/* ─── GLOBAL SECTION ──────────────────────────────────── */
+section { padding:5.5rem 5%; }
+.section-label {
+  font-size:.68rem; color:var(--brass);
+  text-transform:uppercase; letter-spacing:3.5px;
+  font-weight:600; margin-bottom:.7rem;
+}
+.section-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:300; line-height:1.05; color:var(--green);
+}
+.section-title em { font-style:italic; color:var(--brass); }
+.divider {
+  width:40px; height:1.5px;
+  background:var(--brass); margin:1.4rem 0 2.8rem;
+}
+
+/* ─── BUTTONS ─────────────────────────────────────────── */
+.btn-primary {
   display:inline-flex; align-items:center; gap:.5rem;
-  background:rgba(184,148,90,.15); border:1px solid rgba(184,148,90,.35);
-  color:var(--brass-l); font-size:.72rem; font-weight:600;
-  letter-spacing:2.5px; text-transform:uppercase;
-  padding:.4rem 1rem; border-radius:2px; margin-bottom:2rem;
+  background:var(--green); color:#fff;
+  padding:.9rem 2.2rem; border-radius:2px;
+  font-size:.78rem; font-weight:600;
+  text-decoration:none; letter-spacing:1.2px; text-transform:uppercase;
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+  cursor:pointer; border:none;
 }
-.hero h1 {
-  font-family:'Cormorant Garamond',serif; font-weight:300;
-  font-size:clamp(3.5rem,9vw,7.5rem); line-height:.95; color:#fff;
-  margin-bottom:1.5rem;
+.btn-primary:hover {
+  background:var(--green-m);
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-m);
 }
-.hero h1 em { font-style:italic; color:var(--brass-l); }
-.hero-sub { font-size:1rem; color:rgba(255,255,255,.65); max-width:500px; line-height:1.8; margin-bottom:2.5rem; font-weight:300; }
-.hero-btns { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:4rem; }
+.btn-outline {
+  display:inline-flex; align-items:center; gap:.5rem;
+  border:1.5px solid var(--green); color:var(--green);
+  padding:.9rem 2.2rem; border-radius:2px;
+  font-size:.78rem; font-weight:600;
+  text-decoration:none; letter-spacing:1.2px; text-transform:uppercase;
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+}
+.btn-outline:hover { background:var(--green); color:#fff; transform:translateY(-2px); }
+.btn-brass {
+  display:inline-flex; align-items:center; gap:.5rem;
+  background:var(--brass); color:#fff;
+  padding:.9rem 2.2rem; border-radius:2px;
+  font-size:.78rem; font-weight:600;
+  text-decoration:none; letter-spacing:1.2px; text-transform:uppercase;
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+}
+.btn-brass:hover { background:var(--brass-l); transform:translateY(-2px); box-shadow:var(--shadow-m); }
 .btn-hero-outline {
   display:inline-flex; align-items:center; gap:.5rem;
   border:1.5px solid rgba(255,255,255,.35); color:rgba(255,255,255,.85);
-  padding:.85rem 2rem; border-radius:2px; font-size:.82rem; font-weight:600;
-  text-decoration:none; letter-spacing:1px; text-transform:uppercase;
-  transition:all .3s;
+  padding:.9rem 2.2rem; border-radius:2px;
+  font-size:.78rem; font-weight:600;
+  text-decoration:none; letter-spacing:1.2px; text-transform:uppercase;
+  transition:all .4s; cursor:pointer;
 }
-.btn-hero-outline:hover { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.7); }
-.hero-stats { display:flex; gap:3rem; flex-wrap:wrap; padding-top:2rem; border-top:1px solid rgba(255,255,255,.1); }
-.hero-stat .num { font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:300; color:#fff; line-height:1; }
-.hero-stat .lbl { font-size:.7rem; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:1.5px; margin-top:.2rem; }
+.btn-hero-outline:hover {
+  background:rgba(255,255,255,.12);
+  border-color:rgba(255,255,255,.7);
+}
 
-/* ── INTRO STRIP ── */
-.intro-strip { background:#fff; padding:3rem 5%; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:2rem; border-bottom:1px solid var(--border); }
-.intro-strip p { font-size:1rem; color:var(--text-m); max-width:620px; line-height:1.75; font-weight:300; }
-.intro-strip .badge-row { display:flex; gap:.8rem; flex-wrap:wrap; }
-.badge { background:var(--green-tint); color:var(--green-m); font-size:.72rem; font-weight:600; padding:.35rem .8rem; border-radius:20px; border:1px solid var(--border); letter-spacing:.5px; }
+/* ─── PAGE BANNER ─────────────────────────────────────── */
+.page-banner {
+  min-height:44vh; display:flex; flex-direction:column;
+  justify-content:flex-end; padding:8rem 5% 4rem;
+  background:var(--green); position:relative; overflow:hidden;
+}
+.page-banner::before {
+  content:''; position:absolute; inset:0;
+  background-image:radial-gradient(ellipse at 75% 40%,
+    rgba(184,148,90,.13) 0%, transparent 65%);
+}
+.page-banner::after {
+  content:''; position:absolute; inset:0; opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+}
+.page-banner-content { position:relative; z-index:1; }
+.breadcrumb {
+  font-size:.72rem; color:rgba(255,255,255,.45);
+  margin-bottom:1.2rem; letter-spacing:.5px;
+}
+.breadcrumb a { color:var(--brass-l); text-decoration:none; cursor:pointer; }
+.breadcrumb a:hover { color:#fff; }
+.page-banner h1 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,8vw,5.5rem);
+  font-weight:300; color:#fff; line-height:1;
+}
+.page-banner h1 em { font-style:italic; color:var(--brass-l); }
+.page-banner p {
+  font-size:.93rem; color:rgba(255,255,255,.58);
+  margin-top:.9rem; max-width:500px; line-height:1.75; font-weight:300;
+}
 
-/* ── SERVICES ── */
-.services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.5rem; }
+/* ─── CTA BAND ────────────────────────────────────────── */
+.cta-band {
+  background:var(--green); padding:5rem 5%;
+  display:flex; justify-content:space-between;
+  align-items:center; gap:2rem; flex-wrap:wrap;
+  position:relative; overflow:hidden;
+}
+.cta-band::before {
+  content:''; position:absolute; right:-80px; top:-80px;
+  width:360px; height:360px; border-radius:50%;
+  background:radial-gradient(circle, rgba(184,148,90,.1) 0%, transparent 70%);
+}
+.cta-band h2 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,4vw,3rem); font-weight:300;
+  color:#fff; line-height:1.1;
+}
+.cta-band h2 em { color:var(--brass-l); font-style:italic; }
+.cta-band p { font-size:.87rem; color:rgba(255,255,255,.55); margin-top:.5rem; }
+.cta-btns { display:flex; gap:1rem; flex-wrap:wrap; }
 
-/* ── WORK PREVIEW ── */
+/* ─── FOOTER ──────────────────────────────────────────── */
+footer {
+  background:var(--green); color:rgba(255,255,255,.8);
+  padding:5rem 5% 2.5rem;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.footer-inner {
+  display:flex; justify-content:space-between;
+  flex-wrap:wrap; gap:3rem; margin-bottom:3.5rem;
+}
+.footer-logo {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.6rem; font-weight:600; letter-spacing:4px;
+  color:#fff; text-transform:uppercase;
+}
+.footer-logo span { color:var(--brass-l); }
+.footer-tagline {
+  font-size:.76rem; color:rgba(255,255,255,.45);
+  margin-top:.4rem; letter-spacing:.5px;
+}
+.footer-cols { display:flex; gap:4.5rem; flex-wrap:wrap; }
+.footer-col-title {
+  font-size:.64rem; color:var(--brass-l);
+  text-transform:uppercase; letter-spacing:2.5px;
+  margin-bottom:1.1rem; font-weight:600;
+}
+.footer-cols a {
+  display:block; color:rgba(255,255,255,.5);
+  text-decoration:none; font-size:.82rem;
+  margin-bottom:.6rem; transition:color .3s;
+  cursor:pointer;
+}
+.footer-cols a:hover { color:#fff; }
+.footer-bottom {
+  border-top:1px solid rgba(255,255,255,.1);
+  padding-top:1.8rem;
+  display:flex; justify-content:space-between;
+  flex-wrap:wrap; gap:.5rem;
+}
+.footer-bottom span { font-size:.72rem; color:rgba(255,255,255,.35); }
+
+/* ─── STATS ROW ───────────────────────────────────────── */
+.stats-row {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:2rem;
+}
+.stat-box { text-align:center; }
+.stat-box .num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.5rem; font-weight:300;
+  color:var(--green); line-height:1;
+}
+.stat-box .lbl {
+  font-size:.68rem; color:var(--text-l);
+  text-transform:uppercase; letter-spacing:1.5px; margin-top:.4rem;
+}
+.stats-band { background:var(--green); padding:4.5rem 5%; }
+.stats-band .stat-box .num { color:#fff; }
+.stats-band .stat-box .lbl { color:rgba(255,255,255,.45); }
+
+/* ─── SERVICE CARD ────────────────────────────────────── */
+.service-card {
+  background:#fff; border:1px solid var(--border);
+  border-radius:3px; padding:2.2rem;
+  transition:border-color .5s, box-shadow .5s, transform .5s;
+  position:relative; overflow:hidden;
+}
+.service-card::before {
+  content:''; position:absolute; left:0; top:0; bottom:0;
+  width:3px; background:var(--brass);
+  transform:scaleY(0); transform-origin:bottom;
+  transition:transform .5s cubic-bezier(.4,0,.2,1);
+}
+.service-card:hover {
+  border-color:rgba(184,148,90,.3);
+  box-shadow:var(--shadow-m);
+  transform:translateY(-4px);
+}
+.service-card:hover::before { transform:scaleY(1); }
+.service-icon { font-size:2rem; margin-bottom:1.2rem; line-height:1; }
+.service-card h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem; font-weight:600;
+  color:var(--green); margin-bottom:.6rem;
+}
+.service-card p { font-size:.84rem; color:var(--text-m); line-height:1.75; }
+.service-card a {
+  display:inline-block; margin-top:1.2rem;
+  font-size:.76rem; color:var(--brass); font-weight:600;
+  text-decoration:none; letter-spacing:.5px;
+  transition:color .3s, letter-spacing .3s;
+  cursor:pointer;
+}
+.service-card a:hover { color:var(--green); letter-spacing:1px; }
+
+/* ─── TESTIMONIAL ─────────────────────────────────────── */
+.testi-card {
+  background:#fff; border:1px solid var(--border);
+  border-radius:3px; padding:2.2rem;
+  transition:box-shadow .5s;
+}
+.testi-card:hover { box-shadow:var(--shadow); }
+.testi-q {
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.5rem; color:var(--brass); line-height:.8;
+  margin-bottom:.6rem; opacity:.6;
+}
+.testi-text {
+  font-size:.88rem; color:var(--text-m);
+  line-height:1.8; font-style:italic;
+}
+.testi-name { font-size:.86rem; font-weight:600; color:var(--green); margin-top:1.2rem; }
+.testi-loc { font-size:.74rem; color:var(--text-l); margin-top:.15rem; }
+
+/* ─── WA FLOAT ────────────────────────────────────────── */
+.wa-float {
+  position:fixed; bottom:2rem; right:2rem;
+  width:52px; height:52px;
+  background:#25D366; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.4rem; text-decoration:none; z-index:150;
+  box-shadow:0 4px 20px rgba(37,211,102,.4);
+  transition:transform .4s cubic-bezier(.4,0,.2,1), box-shadow .4s;
+  animation:waPulse 3s 2s infinite;
+}
+.wa-float:hover {
+  transform:scale(1.1) translateY(-2px);
+  box-shadow:0 8px 32px rgba(37,211,102,.5);
+  animation:none;
+}
+@keyframes waPulse {
+  0%, 100% { box-shadow:0 4px 20px rgba(37,211,102,.4); }
+  50%       { box-shadow:0 4px 32px rgba(37,211,102,.65); }
+}
+
+/* ─── TOAST ───────────────────────────────────────────── */
+.toast {
+  position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(80px);
+  background:var(--green); color:#fff;
+  padding:.85rem 2rem; border-radius:3px;
+  font-size:.84rem; font-weight:500;
+  opacity:0; transition:all .45s cubic-bezier(.4,0,.2,1);
+  pointer-events:none; z-index:900;
+  border:1px solid rgba(255,255,255,.12);
+}
+.toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
+
+/* ════════════════════════════════════════════════════════
+   PAGE: HOME
+════════════════════════════════════════════════════════ */
+
+/* HERO */
+.hero {
+  min-height:100vh; display:flex; flex-direction:column;
+  justify-content:center; padding:8rem 5% 5rem;
+  position:relative; overflow:hidden;
+  background:var(--green);
+  cursor:none;
+}
+.hero-texture {
+  position:absolute; inset:0; opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-glow {
+  position:absolute; right:-8%; top:5%;
+  width:700px; height:700px; border-radius:50%;
+  background:radial-gradient(circle, rgba(184,148,90,.1) 0%, transparent 65%);
+  pointer-events:none;
+}
+.hero-line {
+  position:absolute; left:5%; bottom:0; top:0;
+  width:1px; background:linear-gradient(to bottom, transparent, rgba(255,255,255,.08) 40%, rgba(255,255,255,.08) 60%, transparent);
+  pointer-events:none;
+}
+.hero-content { position:relative; z-index:2; max-width:900px; }
+
+/* ── CUSTOM CURSOR ── */
+#heroCursor {
+  position:fixed; z-index:9990;
+  pointer-events:none;
+  width:10px; height:10px; border-radius:50%;
+  background:var(--brass-l);
+  transform:translate(-50%,-50%);
+  transition:width .35s ease, height .35s ease, opacity .3s ease, background .3s ease;
+  opacity:0;
+}
+#heroCursor.visible { opacity:1; }
+#heroCursor.hovering {
+  width:56px; height:56px;
+  background:rgba(184,148,90,.15);
+  border:1px solid rgba(184,148,90,.45);
+}
+
+/* ── IMAGE FOLLOWER ── */
+#heroImgFollower {
+  position:fixed; z-index:9985;
+  pointer-events:none;
+  width:280px; height:190px;
+  border-radius:2px; overflow:hidden;
+  transform:translate(-50%,-62%) rotate(-2deg);
+  opacity:0;
+  transition:opacity .45s cubic-bezier(.4,0,.2,1),
+             transform .6s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 24px 70px rgba(0,0,0,.45);
+  will-change:transform,opacity;
+}
+#heroImgFollower.visible {
+  opacity:1;
+  transform:translate(-50%,-62%) rotate(0deg);
+}
+#heroImgFollower img {
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:opacity .3s;
+}
+
+.hero-badge {
+  display:inline-flex; align-items:center; gap:.6rem;
+  background:rgba(184,148,90,.12);
+  border:1px solid rgba(184,148,90,.3);
+  color:var(--brass-l); font-size:.68rem; font-weight:600;
+  letter-spacing:2.5px; text-transform:uppercase;
+  padding:.45rem 1.1rem; border-radius:2px; margin-bottom:2.2rem;
+  opacity:0; transform:translateY(16px);
+  animation:heroFadeUp .8s .2s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+/* ── HEADLINE — hoverable words ── */
+.hero h1 {
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;
+  font-size:clamp(3.8rem,9.5vw,8.2rem);
+  line-height:.96; color:#fff; margin-bottom:1.8rem;
+}
+.hero-line-wrap {
+  display:block; overflow:hidden; line-height:1.05;
+}
+.hero-line-1 {
+  display:block;
+  opacity:0; transform:translateY(100%);
+  animation:heroLineUp 1s .4s cubic-bezier(.4,0,.2,1) forwards;
+}
+.hero-line-2 {
+  display:block;
+  opacity:0; transform:translateY(100%);
+  animation:heroLineUp 1s .55s cubic-bezier(.4,0,.2,1) forwards;
+}
+.hero-line-3 {
+  display:block;
+  opacity:0; transform:translateY(100%);
+  animation:heroLineUp 1s .7s cubic-bezier(.4,0,.2,1) forwards;
+}
+/* hoverable word */
+.hw {
+  display:inline; cursor:none;
+  transition:color .4s ease;
+  position:relative;
+}
+.hw.brass-word { color:var(--brass-l); font-style:italic; }
+.hw:hover { color:var(--brass-l); }
+
+@keyframes heroFadeUp {
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes heroLineUp {
+  to { opacity:1; transform:translateY(0); }
+}
+
+.hero-sub {
+  font-size:.95rem; color:rgba(255,255,255,.58);
+  max-width:500px; line-height:1.85; margin-bottom:2.8rem;
+  font-weight:300;
+  opacity:0; transform:translateY(16px);
+  animation:heroFadeUp .8s .85s cubic-bezier(.4,0,.2,1) forwards;
+}
+.hero-btns {
+  display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:5rem;
+  opacity:0; transform:translateY(16px);
+  animation:heroFadeUp .8s 1s cubic-bezier(.4,0,.2,1) forwards;
+}
+.hero-stats {
+  display:flex; gap:3.5rem; flex-wrap:wrap;
+  padding-top:2.5rem;
+  border-top:1px solid rgba(255,255,255,.1);
+  opacity:0;
+  animation:heroFadeUp .8s 1.2s cubic-bezier(.4,0,.2,1) forwards;
+}
+.hero-stat .num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.8rem; font-weight:300; color:#fff; line-height:1;
+}
+.hero-stat .lbl {
+  font-size:.66rem; color:rgba(255,255,255,.45);
+  text-transform:uppercase; letter-spacing:1.5px; margin-top:.25rem;
+}
+
+/* INTRO STRIP */
+.intro-strip {
+  background:#fff; padding:3.5rem 5%;
+  display:flex; justify-content:space-between;
+  align-items:center; flex-wrap:wrap; gap:2rem;
+  border-bottom:1px solid var(--border);
+}
+.intro-strip p {
+  font-size:.97rem; color:var(--text-m);
+  max-width:620px; line-height:1.8; font-weight:300;
+}
+.badge-row { display:flex; gap:.7rem; flex-wrap:wrap; }
+.badge {
+  background:var(--green-tint); color:var(--green-m);
+  font-size:.68rem; font-weight:600;
+  padding:.35rem .85rem; border-radius:20px;
+  border:1px solid var(--border); letter-spacing:.5px;
+}
+
+/* SERVICES GRID */
+.services-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1.5rem;
+}
+
+/* RECENT WORK STRIP */
 .work-preview-wrap { background:var(--cream); }
+.work-mini-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:10px;
+}
+.work-mini-item {
+  position:relative; overflow:hidden;
+  border-radius:3px; background:var(--green-pale);
+  aspect-ratio:4/3; cursor:pointer;
+}
+.work-mini-item img {
+  width:100%; height:100%; object-fit:cover;
+  display:block; transition:transform .8s cubic-bezier(.4,0,.2,1);
+}
+.work-mini-item:hover img { transform:scale(1.06); }
+.work-mini-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(27,58,44,.6) 0%, transparent 55%);
+  opacity:0; transition:opacity .5s;
+  display:flex; align-items:flex-end; padding:1rem;
+}
+.work-mini-item:hover .work-mini-overlay { opacity:1; }
+.work-mini-overlay span {
+  font-size:.72rem; color:#fff;
+  letter-spacing:1px; text-transform:uppercase;
+}
 
-/* ── INSTAGRAM ── */
-.insta-section { background:#fff; }
-.insta-header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:2rem; }
-.insta-handle { display:flex; align-items:center; gap:.6rem; text-decoration:none; color:var(--green); font-weight:600; font-size:.88rem; }
-.insta-handle svg { width:20px; height:20px; }
+/* TESTIMONIALS */
+.testi-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;
+}
 
-/* ── TESTIMONIALS ── */
-.testi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
+/* ════════════════════════════════════════════════════════
+   PAGE: SERVICES
+════════════════════════════════════════════════════════ */
+.service-section {
+  padding:5.5rem 5%;
+  border-bottom:1px solid var(--border);
+}
+.service-section:last-of-type { border-bottom:none; }
+.service-layout {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:5rem; align-items:center;
+}
+.service-layout.reverse { direction:rtl; }
+.service-layout.reverse > * { direction:ltr; }
+.service-visual {
+  background:var(--green-tint); border:1px solid var(--border);
+  border-radius:3px; padding:3.5rem;
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:1.2rem; min-height:300px;
+  position:relative; overflow:hidden;
+}
+.service-visual::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(27,58,44,.04), transparent);
+}
+.service-big-icon { font-size:5rem; line-height:1; }
+.service-visual-label {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.3rem; color:var(--green-m); letter-spacing:1px;
+}
+.service-content h2 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:300; color:var(--green); line-height:1.05; margin-bottom:1.2rem;
+}
+.service-content h2 em { font-style:italic; color:var(--brass); }
+.service-content > p {
+  font-size:.9rem; color:var(--text-m); line-height:1.8; margin-bottom:1.8rem;
+}
+.service-list { list-style:none; display:grid; gap:.7rem; margin-bottom:2.2rem; }
+.service-list li {
+  font-size:.86rem; color:var(--text);
+  display:flex; align-items:flex-start; gap:.8rem;
+}
+.service-list li::before {
+  content:'→'; color:var(--brass); flex-shrink:0;
+  font-weight:600; transition:transform .3s;
+}
+.service-list li:hover::before { transform:translateX(4px); }
+.price-note {
+  background:var(--green-tint); border:1px solid var(--border);
+  border-left:3px solid var(--green);
+  padding:1rem 1.2rem; border-radius:0 3px 3px 0;
+  font-size:.83rem; color:var(--text-m); margin-bottom:2rem;
+}
+.price-note strong { color:var(--green); }
 
-/* ── EmbedSocial overrides ── */
-/* Hide "Get Started" button and branding */
-.es-widget-branding,
-.feed-powered-by-es,
-[class*="powered-by-es"],
-[class*="es-branding"],
-[class*="getStarted"],
-[class*="get-started"],
-a[href*="embedsocial.com"] { display:none !important; }
+/* ════════════════════════════════════════════════════════
+   PAGE: PORTFOLIO — Dark Immersive Gallery
+════════════════════════════════════════════════════════ */
+#page-portfolio {
+  background:#0e1e16;
+}
+#page-portfolio .page-banner {
+  background:#0a1610;
+  border-bottom:1px solid rgba(184,148,90,.1);
+}
+#page-portfolio .page-banner::before {
+  background-image:radial-gradient(ellipse at 70% 40%, rgba(184,148,90,.08) 0%, transparent 65%);
+}
+#page-portfolio section {
+  background:#0e1e16;
+}
+#page-portfolio .section-label { color:var(--brass); }
+#page-portfolio .section-title { color:rgba(255,255,255,.9); }
+#page-portfolio .divider { background:var(--brass); opacity:.5; }
+#page-portfolio .cta-band { background:#0a1610; border-top:1px solid rgba(184,148,90,.1); }
 
-/* Hide any button inside the embed that links to embedsocial */
-.embedsocial-hashtag a[href*="embedsocial"],
-.embedsocial-hashtag a[href*="get-started"] { display:none !important; }
+/* MASONRY GRID */
+.media-grid {
+  columns:3 260px; column-gap:8px;
+  padding:0;
+}
+.media-card {
+  break-inside:avoid; margin-bottom:8px;
+  position:relative; overflow:hidden;
+  border-radius:2px; background:#0a1610;
+  cursor:pointer; display:block;
+  transition:transform .6s cubic-bezier(.4,0,.2,1);
+}
+.media-card img {
+  width:100%; display:block;
+  transition:transform .9s cubic-bezier(.4,0,.2,1), filter .9s;
+  filter:brightness(.88) saturate(.9);
+}
+.media-card:hover { transform:translateY(-3px); }
+.media-card:hover img {
+  transform:scale(1.05);
+  filter:brightness(1) saturate(1.1);
+}
+/* Bottom overlay with brass line reveal */
+.media-card-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top,
+    rgba(10,22,16,.8) 0%,
+    rgba(10,22,16,.3) 40%,
+    transparent 70%);
+  opacity:0; transition:opacity .5s ease;
+  display:flex; align-items:flex-end; padding:1.1rem;
+}
+.media-card:hover .media-card-overlay { opacity:1; }
+/* Brass accent line that sweeps in on hover */
+.media-card::after {
+  content:''; position:absolute;
+  bottom:0; left:0; right:0; height:2px;
+  background:var(--brass);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .5s cubic-bezier(.4,0,.2,1);
+}
+.media-card:hover::after { transform:scaleX(1); }
+.play-badge {
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:52px; height:52px;
+  background:rgba(184,148,90,.2);
+  border:1px solid rgba(184,148,90,.5);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  backdrop-filter:blur(8px);
+  transition:transform .3s, background .3s;
+}
+.media-card:hover .play-badge {
+  transform:translate(-50%,-50%) scale(1.1);
+  background:rgba(184,148,90,.35);
+}
+.media-grid-placeholder {
+  columns:initial; display:grid;
+  grid-template-columns:1fr;
+  place-items:center; min-height:300px;
+}
+
+/* LIGHTBOX */
+.lightbox {
+  position:fixed; inset:0; z-index:500;
+  background:rgba(5,12,8,.97);
+  display:none; align-items:center; justify-content:center;
+  padding:1rem;
+}
+.lightbox.open { display:flex; }
+.lb-media-wrap {
+  max-width:92vw; max-height:88vh;
+  display:flex; align-items:center; justify-content:center;
+}
+.lb-media-wrap img {
+  max-width:92vw; max-height:88vh;
+  object-fit:contain; border-radius:2px; display:block;
+  box-shadow:0 40px 100px rgba(0,0,0,.7);
+}
+.lb-media-wrap video {
+  max-width:92vw; max-height:88vh;
+  border-radius:2px; background:#000;
+}
+.lb-close {
+  position:fixed; top:1.2rem; right:1.5rem;
+  background:rgba(184,148,90,.1);
+  border:1px solid rgba(184,148,90,.3);
+  color:var(--brass-l); width:40px; height:40px; border-radius:50%;
+  cursor:pointer; font-size:1rem;
+  display:flex; align-items:center; justify-content:center;
+  transition:all .3s; z-index:10;
+}
+.lb-close:hover { background:rgba(184,148,90,.25); color:#fff; }
+.lb-nav {
+  position:fixed; top:50%; transform:translateY(-50%);
+  background:rgba(184,148,90,.08);
+  border:1px solid rgba(184,148,90,.2);
+  color:rgba(255,255,255,.7); width:48px; height:48px; border-radius:50%;
+  cursor:pointer; font-size:1.5rem;
+  display:flex; align-items:center; justify-content:center;
+  transition:all .3s; z-index:10;
+}
+.lb-nav:hover { background:rgba(184,148,90,.2); color:#fff; }
+.lb-prev { left:1rem; }
+.lb-next { right:1rem; }
+.lb-counter {
+  position:fixed; bottom:1.5rem; left:50%;
+  transform:translateX(-50%);
+  color:rgba(184,148,90,.5); font-size:.72rem;
+  letter-spacing:3px; font-family:'Cormorant Garamond',serif;
+}
+
+/* ════════════════════════════════════════════════════════
+   PAGE: ABOUT
+════════════════════════════════════════════════════════ */
+.story-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:5rem; align-items:center;
+}
+.story-text p {
+  font-size:.91rem; color:var(--text-m);
+  line-height:1.85; margin-bottom:1rem;
+}
+.metric-block {
+  background:#fff; border:1px solid var(--border);
+  border-radius:3px; padding:1.8rem 1rem; text-align:center;
+  transition:box-shadow .4s, transform .4s;
+}
+.metric-block:hover { box-shadow:var(--shadow); transform:translateY(-3px); }
+.metric-block .m-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:3rem; font-weight:300;
+  color:var(--green); line-height:1;
+}
+.metric-block .m-lbl {
+  font-size:.66rem; color:var(--text-l);
+  text-transform:uppercase; letter-spacing:1.5px; margin-top:.4rem;
+}
+.story-visual {
+  display:grid; grid-template-columns:1fr 1fr; gap:1rem;
+}
+.values-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1.5rem;
+}
+.value-card {
+  background:#fff; border:1px solid var(--border);
+  border-radius:3px; padding:2.2rem;
+  transition:box-shadow .5s, transform .5s;
+}
+.value-card:hover { box-shadow:var(--shadow); transform:translateY(-4px); }
+.value-icon { font-size:2rem; margin-bottom:1rem; }
+.value-card h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.3rem; font-weight:600;
+  color:var(--green); margin-bottom:.5rem;
+}
+.value-card p { font-size:.84rem; color:var(--text-m); line-height:1.75; }
+.feat-row { display:flex; gap:1.4rem; align-items:flex-start; }
+.feat-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.8rem; color:var(--brass); opacity:.3;
+  line-height:1; min-width:48px;
+}
+.feat-text h4 { font-size:.93rem; font-weight:600; color:var(--green); margin-bottom:.3rem; }
+.feat-text p { font-size:.83rem; color:var(--text-m); line-height:1.7; }
+.features-list { display:grid; gap:2rem; }
+.warranty-card {
+  background:var(--green-tint); border:1px solid var(--border);
+  border-left:3px solid var(--green);
+  padding:1.5rem; border-radius:0 3px 3px 0;
+  transition:border-color .3s;
+}
+.warranty-card:hover { border-left-color:var(--brass); }
+.warranty-card .w-label {
+  font-size:.66rem; color:var(--brass);
+  text-transform:uppercase; letter-spacing:2px;
+  margin-bottom:.5rem; font-weight:600;
+}
+.warranty-card p { font-size:.86rem; color:var(--text); line-height:1.7; }
+
+/* ════════════════════════════════════════════════════════
+   PAGE: CONTACT
+════════════════════════════════════════════════════════ */
+.contact-layout {
+  display:grid; grid-template-columns:1fr 1.4fr;
+  gap:5rem; align-items:start;
+}
+.ci-item { display:flex; gap:1.1rem; align-items:flex-start; }
+.ci-icon {
+  width:44px; height:44px;
+  background:var(--green-tint); border:1px solid var(--border);
+  border-radius:3px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; flex-shrink:0;
+  transition:background .3s, border-color .3s;
+}
+.ci-item:hover .ci-icon { background:var(--green); border-color:var(--green); }
+.ci-item h4 {
+  font-size:.68rem; color:var(--text-l);
+  text-transform:uppercase; letter-spacing:1px; margin-bottom:.25rem;
+}
+.ci-item p, .ci-item a {
+  font-size:.93rem; color:var(--text); text-decoration:none;
+  transition:color .3s;
+}
+.ci-item a:hover { color:var(--green); }
+.contact-info-list { display:grid; gap:1.5rem; margin-bottom:2.2rem; }
+.form-card {
+  background:#fff; border:1px solid var(--border);
+  border-radius:4px; padding:2.8rem;
+  box-shadow:var(--shadow-m);
+}
+.form-card h2 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.2rem; font-weight:300;
+  color:var(--green); margin-bottom:.3rem;
+}
+.form-card h2 em { font-style:italic; color:var(--brass); }
+.form-card .sub { font-size:.83rem; color:var(--text-l); margin-bottom:2.2rem; }
+.form-group { display:grid; gap:.4rem; margin-bottom:.8rem; }
+.form-group label {
+  font-size:.68rem; color:var(--text-m);
+  text-transform:uppercase; letter-spacing:1.2px; font-weight:500;
+}
+.form-group input, .form-group textarea {
+  background:var(--cream); border:1px solid var(--border);
+  color:var(--text); padding:.8rem 1rem;
+  border-radius:2px; font-size:.9rem;
+  font-family:'Jost',sans-serif; outline:none;
+  transition:border-color .3s, background .3s;
+  width:100%;
+}
+.form-group input:focus, .form-group textarea:focus {
+  border-color:var(--green); background:#fff;
+}
+.form-group textarea { height:110px; resize:vertical; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.service-tags { display:flex; gap:.4rem; flex-wrap:wrap; margin:.3rem 0 .8rem; }
+.s-tag {
+  background:var(--green-tint); border:1px solid var(--border);
+  color:var(--text-m); font-size:.72rem;
+  padding:.3rem .75rem; border-radius:20px;
+  cursor:pointer; transition:all .3s;
+}
+.s-tag.selected, .s-tag:hover {
+  background:var(--green); border-color:var(--green); color:#fff;
+}
+.s-tag-label {
+  font-size:.68rem; color:var(--text-m);
+  text-transform:uppercase; letter-spacing:1px;
+  font-weight:500; display:block; margin-bottom:.5rem;
+}
+.btn-submit {
+  background:var(--green); color:#fff;
+  padding:1rem; border:none; border-radius:2px;
+  font-size:.84rem; font-weight:600;
+  cursor:pointer; width:100%;
+  font-family:'Jost',sans-serif;
+  transition:all .4s; margin-top:.5rem;
+  letter-spacing:1.2px; text-transform:uppercase;
+}
+.btn-submit:hover { background:var(--green-m); transform:translateY(-2px); }
+.success-msg {
+  background:var(--green-tint); border:1px solid var(--border);
+  border-left:3px solid var(--green);
+  padding:1.2rem; border-radius:0 3px 3px 0;
+  font-size:.9rem; color:var(--green); display:none;
+  margin-bottom:1.5rem;
+}
+.quick-actions {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.2rem;
+}
+.quick-action-card {
+  background:#fff; border:1px solid var(--border);
+  border-radius:3px; padding:2.2rem; text-align:center;
+  text-decoration:none; display:block;
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+  cursor:pointer;
+}
+.quick-action-card:hover {
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-m);
+}
+.quick-action-card .qa-icon { font-size:2rem; margin-bottom:.9rem; }
+.quick-action-card .qa-label {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem; color:var(--green); font-weight:600;
+}
+.quick-action-card .qa-sub {
+  font-size:.78rem; margin-top:.3rem;
+}
+
+/* ════════════════════════════════════════════════════════
+   COUNTER ANIMATION
+════════════════════════════════════════════════════════ */
+.count-num { display:inline-block; }
+
+/* ════════════════════════════════════════════════════════
+   INSTAGRAM SECTION
+════════════════════════════════════════════════════════ */
+.insta-header {
+  display:flex; align-items:center;
+  justify-content:space-between; flex-wrap:wrap;
+  gap:1rem; margin-bottom:2.5rem;
+}
+
+/* ════════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════ */
+@media(max-width:900px) {
+  .contact-layout, .story-grid, .service-layout,
+  .service-layout.reverse { grid-template-columns:1fr; direction:ltr; }
+  .form-row { grid-template-columns:1fr; }
+}
+@media(max-width:768px) {
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+  .nav-cta { display:none; }
+  .footer-cols { gap:2rem; }
+  .footer-inner { flex-direction:column; }
+  .cta-band { flex-direction:column; text-align:center; }
+  .cta-btns { justify-content:center; }
+  .media-grid { columns:2 180px; }
+  .hero-stats { gap:2rem; }
+}
+@media(max-width:480px) {
+  .media-grid { columns:1; }
+  .hero h1 { font-size:3.5rem; }
+  .hero-stats { gap:1.5rem; }
+  section { padding:4rem 5%; }
+}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-texture"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-content">
-    <div class="hero-badge">⚙ Trusted Infra Partner · Tamil Nadu</div>
-    <h1>We Build<br><em>Legends</em><br>In Steel</h1>
-    <p class="hero-sub">Premium decor fabrication, interior fit-outs, and expert borewell solutions — trusted by clients across Chennai, Coimbatore, Trichy and Tirunelveli.</p>
-    <div class="hero-btns">
-      <a href="portfolio.html" class="btn-brass">View Our Work</a>
-      <a href="contact.html" class="btn-hero-outline">Get Free Quote</a>
-    </div>
-    <div class="hero-stats">
-      <div class="hero-stat"><div class="num">150+</div><div class="lbl">Projects Done</div></div>
-      <div class="hero-stat"><div class="num">8+</div><div class="lbl">Years Active</div></div>
-      <div class="hero-stat"><div class="num">50+</div><div class="lbl">Happy Clients</div></div>
-      <div class="hero-stat"><div class="num">4</div><div class="lbl">Branch Cities</div></div>
-    </div>
-  </div>
-</section>
+<!-- ═══════════════ PAGE LOADER ═══════════════ -->
+<div id="loader">
+  <svg id="houseSvg" viewBox="0 0 520 320" width="420" height="260"
+       xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
 
-<!-- INTRO STRIP -->
-<div class="intro-strip reveal">
-  <p>From ornate fabrication to deep borewell drilling — we handle your entire infra requirement with quality materials, honest pricing, and on-time delivery.</p>
-  <div class="badge-row">
-    <span class="badge">Free Site Visit</span>
-    <span class="badge">Written Quotes</span>
-    <span class="badge">1-Year Warranty</span>
-    <span class="badge">24/7 Emergency</span>
-  </div>
+    <!-- Stars background -->
+    <g id="l-stars" fill="rgba(255,255,255,.4)">
+      <circle cx="40"  cy="30"  r="1.2"/><circle cx="80"  cy="15"  r="1"/>
+      <circle cx="130" cy="40"  r="1.4"/><circle cx="200" cy="20"  r="1"/>
+      <circle cx="260" cy="10"  r="1.5"/><circle cx="330" cy="35"  r="1"/>
+      <circle cx="390" cy="18"  r="1.2"/><circle cx="450" cy="28"  r="1.4"/>
+      <circle cx="480" cy="8"   r="1"/><circle cx="60"  cy="55"  r="1"/>
+      <circle cx="420" cy="55"  r="1.2"/><circle cx="170" cy="55"  r="1"/>
+    </g>
+
+    <!-- Ground line -->
+    <path id="l-ground" class="draw"
+      d="M 10 258 Q 130 252 260 255 Q 390 258 510 253"/>
+
+    <!-- Foundation / base -->
+    <path id="l-found" class="draw"
+      d="M 90 255 L 90 245 L 430 245 L 430 255"/>
+
+    <!-- Left wall -->
+    <path id="l-wall-l" class="draw"
+      d="M 100 245 L 100 155"/>
+
+    <!-- Right wall -->
+    <path id="l-wall-r" class="draw"
+      d="M 420 245 L 420 155"/>
+
+    <!-- Wall top -->
+    <path id="l-wall-top" class="draw"
+      d="M 100 155 L 420 155"/>
+
+    <!-- Roof left slope -->
+    <path id="l-roof-l" class="draw"
+      d="M 75 160 L 260 72"/>
+
+    <!-- Roof right slope -->
+    <path id="l-roof-r" class="draw"
+      d="M 445 160 L 260 72"/>
+
+    <!-- Roof overhang / soffit line -->
+    <path id="l-roof-ovh" class="draw"
+      d="M 75 168 L 260 80 L 445 168"/>
+
+    <!-- Chimney -->
+    <path id="l-chim" class="draw"
+      d="M 340 115 L 340 82 L 370 82 L 370 100"/>
+
+    <!-- Smoke -->
+    <path id="l-smoke" class="draw"
+      d="M 350 80 C 345 65 360 55 352 40 C 344 25 362 20 355 8"/>
+
+    <!-- Door -->
+    <path id="l-door" class="draw"
+      d="M 220 245 L 220 190 Q 220 180 230 180 L 290 180 Q 300 180 300 190 L 300 245"/>
+
+    <!-- Door arch top detail -->
+    <path id="l-door" class="draw"
+      d="M 225 188 Q 260 170 295 188"/>
+
+    <!-- Left window -->
+    <path id="l-win-l" class="draw"
+      d="M 120 220 L 120 185 L 175 185 L 175 220 L 120 220"/>
+
+    <!-- Right window -->
+    <path id="l-win-r" class="draw"
+      d="M 345 220 L 345 185 L 400 185 L 400 220 L 345 220"/>
+
+    <!-- Left window cross -->
+    <path id="l-winx-l" class="draw"
+      d="M 147 185 L 147 220 M 120 202 L 175 202"/>
+
+    <!-- Right window cross -->
+    <path id="l-winx-r" class="draw"
+      d="M 372 185 L 372 220 M 345 202 L 400 202"/>
+
+    <!-- Porch step -->
+    <path id="l-step" class="draw"
+      d="M 210 255 L 210 248 L 310 248 L 310 255"/>
+
+    <!-- Left tree trunk + branches -->
+    <path id="l-tree-l" class="draw"
+      d="M 48 255 L 48 215
+         M 48 240 L 32 220
+         M 48 228 L 62 210
+         M 48 218 L 36 200
+         M 48 218 L 58 198
+         M 48 215 L 40 195
+         M 48 215 L 56 192"/>
+
+    <!-- Right tree trunk + branches -->
+    <path id="l-tree-r" class="draw"
+      d="M 472 255 L 472 215
+         M 472 240 L 456 220
+         M 472 228 L 486 210
+         M 472 218 L 460 200
+         M 472 218 L 482 198
+         M 472 215 L 464 195
+         M 472 215 L 480 192"/>
+
+  </svg>
+
+  <div class="loader-logo">LEGENDS <span>INFRA</span></div>
+  <div class="loader-tagline">Building Tamil Nadu Since 2016</div>
 </div>
 
-<!-- SERVICES -->
-<section style="background:#fff;">
-  <div class="reveal">
-    <div class="section-label">What We Do</div>
-    <div class="section-title">Our <em>Services</em></div>
-    <div class="divider"></div>
-  </div>
-  <div class="services-grid reveal">
-    <div class="service-card">
-      <div class="service-icon">🏗️</div>
-      <h3>Decor Fabrication</h3>
-      <p>Custom steel & aluminium structures — gates, railings, grills, pergolas, and designer metalwork for homes and businesses.</p>
-      <a href="services.html#fabrication">Learn More →</a>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🎨</div>
-      <h3>Interior Fit-Out</h3>
-      <p>False ceilings, wall panels, partitions, and modular structures. Modern aesthetics built with precision fabrication.</p>
-      <a href="services.html#interior">Learn More →</a>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">💧</div>
-      <h3>Borewell Drilling</h3>
-      <p>Full-service borewell solutions — site survey, drilling, casing, pump installation and yield testing.</p>
-      <a href="services.html#borewell">Learn More →</a>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🔧</div>
-      <h3>Borewell Maintenance</h3>
-      <p>Pump servicing, flushing, compressor work, and borewell revival. Same-day emergency response available.</p>
-      <a href="services.html#maintenance">Learn More →</a>
-    </div>
-  </div>
-</section>
+<!-- ═══════════════ HERO CURSOR & IMAGE FOLLOWER ═══════════════ -->
+<div id="heroCursor"></div>
+<div id="heroImgFollower"><img id="heroImgEl" src="" alt=""/></div>
 
-<!-- RECENT WORK -->
-<section class="work-preview-wrap">
-  <div class="reveal">
-    <div class="section-label">Portfolio</div>
-    <div class="section-title">Recent <em>Work</em></div>
-    <div class="divider"></div>
-  </div>
-  <div id="recentWork" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;">
-    <div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--text-l);font-size:.9rem">Loading projects...</div>
-  </div>
-  <div style="text-align:center;margin-top:2.5rem" class="reveal">
-    <a href="portfolio.html" class="btn-outline">See All Projects →</a>
-  </div>
-</section>
+<!-- ═══════════════ PROGRESS LINE ═══════════════ -->
+<div id="progressLine"></div>
 
-<!-- INSTAGRAM FEED -->
-<section class="insta-section">
-  <div class="insta-header reveal">
-    <div>
-      <div class="section-label">Instagram</div>
-      <div class="section-title">Latest on <em>Instagram</em></div>
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav id="mainNav" class="dark-hero">
+  <a class="nav-logo" onclick="navTo('home')">LEGENDS <span>INFRA</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a onclick="navTo('home')"    id="nl-home">Home</a></li>
+    <li><a onclick="navTo('services')" id="nl-services">Services</a></li>
+    <li><a onclick="navTo('portfolio')" id="nl-portfolio">Our Work</a></li>
+    <li><a onclick="navTo('about')"   id="nl-about">Why Us</a></li>
+    <li><a onclick="navTo('contact')" id="nl-contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" onclick="navTo('contact')">Get a Quote</a>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ═══════════════ MOBILE MENU ═══════════════ -->
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="navTo('home');toggleMobileMenu()">Home</a>
+  <a onclick="navTo('services');toggleMobileMenu()">Services</a>
+  <a onclick="navTo('portfolio');toggleMobileMenu()">Our Work</a>
+  <a onclick="navTo('about');toggleMobileMenu()">Why Us</a>
+  <a onclick="navTo('contact');toggleMobileMenu()">Contact</a>
+  <div class="m-contact">+91 96770 29865</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     PAGE: HOME
+════════════════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero" id="heroSection">
+    <div class="hero-texture"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-line"></div>
+    <div class="hero-content">
+      <div class="hero-badge">⚙ Trusted Infra Partner · Tamil Nadu</div>
+      <h1>
+        <span class="hero-line-wrap">
+          <span class="hero-line-1">
+            <span class="hw" data-img="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=85">We</span>
+            <span class="hw" data-img="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=85"> Build</span>
+          </span>
+        </span>
+        <span class="hero-line-wrap">
+          <span class="hero-line-2">
+            <span class="hw brass-word" data-img="https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800&q=85">Legends</span>
+          </span>
+        </span>
+        <span class="hero-line-wrap">
+          <span class="hero-line-3">
+            <span class="hw" data-img="https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=800&q=85">In</span>
+            <span class="hw" data-img="https://images.unsplash.com/photo-1590736969955-71cc94901144?w=800&q=85"> Steel</span>
+          </span>
+        </span>
+      </h1>
+      <p class="hero-sub">Premium decor fabrication, interior fit-outs, and expert borewell solutions — trusted by clients across Chennai, Coimbatore, Trichy and Tirunelveli.</p>
+      <div class="hero-btns">
+        <a class="btn-brass" onclick="navTo('portfolio')">View Our Work</a>
+        <a class="btn-hero-outline" onclick="navTo('contact')">Get Free Quote</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="num" data-count="150" data-suffix="+">150+</div>
+          <div class="lbl">Projects Done</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num" data-count="8" data-suffix="+">8+</div>
+          <div class="lbl">Years Active</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num" data-count="50" data-suffix="+">50+</div>
+          <div class="lbl">Happy Clients</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num" data-count="4" data-suffix="">4</div>
+          <div class="lbl">Branch Cities</div>
+        </div>
+      </div>
     </div>
-    <a href="https://www.instagram.com/legendsinfra/" target="_blank" class="btn-primary" style="display:inline-flex;align-items:center;gap:.5rem;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-      Follow @legendsinfra
-    </a>
+    <!-- hint -->
+    <div style="position:absolute;bottom:2.5rem;left:5%;font-size:.68rem;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;opacity:0;animation:heroFadeUp .8s 1.6s forwards">
+      Hover the words &nbsp;↑
+    </div>
+  </section>
+
+  <!-- INTRO STRIP -->
+  <div class="intro-strip reveal">
+    <p>From ornate fabrication to deep borewell drilling — we handle your entire infra requirement with quality materials, honest pricing, and on-time delivery.</p>
+    <div class="badge-row">
+      <span class="badge">Free Site Visit</span>
+      <span class="badge">Written Quotes</span>
+      <span class="badge">1-Year Warranty</span>
+      <span class="badge">24/7 Emergency</span>
+    </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════════
-       INSTAGRAM EMBED — swap the div below with your Behold widget
-       Steps:
-       1. Go to behold.so → sign up free → connect @legendsinfra
-       2. Create a feed → copy the embed code
-       3. Replace the div below with that embed code
-  ══════════════════════════════════════════════════════════ -->
+  <!-- SERVICES -->
+  <section style="background:#fff;">
+    <div class="reveal">
+      <div class="section-label">What We Do</div>
+      <div class="section-title">Our <em>Services</em></div>
+      <div class="divider"></div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal delay-1">
+        <div class="service-icon">🏗️</div>
+        <h3>Decor Fabrication</h3>
+        <p>Custom steel & aluminium structures — gates, railings, grills, pergolas, and designer metalwork for homes and businesses.</p>
+        <a onclick="navTo('services')">Learn More →</a>
+      </div>
+      <div class="service-card reveal delay-2">
+        <div class="service-icon">🎨</div>
+        <h3>Interior Fit-Out</h3>
+        <p>False ceilings, wall panels, partitions, and modular structures. Modern aesthetics built with precision fabrication.</p>
+        <a onclick="navTo('services')">Learn More →</a>
+      </div>
+      <div class="service-card reveal delay-3">
+        <div class="service-icon">💧</div>
+        <h3>Borewell Drilling</h3>
+        <p>Full-service borewell solutions — site survey, drilling, casing, pump installation and yield testing.</p>
+        <a onclick="navTo('services')">Learn More →</a>
+      </div>
+      <div class="service-card reveal delay-4">
+        <div class="service-icon">🔧</div>
+        <h3>Borewell Maintenance</h3>
+        <p>Pump servicing, flushing, compressor work, and borewell revival. Same-day emergency response available.</p>
+        <a onclick="navTo('services')">Learn More →</a>
+      </div>
+    </div>
+  </section>
 
-  <div class="reveal" id="instaFeedWrap">
-    <div class="embedsocial-hashtag" data-ref="92eaddebb51141ce59e9558395345866dd099687">
-      <a class="feed-powered-by-es feed-powered-by-es-feed-img es-widget-branding" href="https://embedsocial.com/instagram-widget/" target="_blank" title="Instagram widget">
-        <img src="https://embedsocial.com/cdn/icon/embedsocial-logo.webp" alt="EmbedSocial">
-        <div class="es-widget-branding-text">Instagram widget</div>
+  <!-- RECENT WORK -->
+  <section class="work-preview-wrap">
+    <div class="reveal">
+      <div class="section-label">Portfolio</div>
+      <div class="section-title">Recent <em>Work</em></div>
+      <div class="divider"></div>
+    </div>
+    <div class="work-mini-grid reveal" id="homeRecentWork">
+      <div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-l)">Loading projects...</div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem" class="reveal">
+      <a class="btn-outline" onclick="navTo('portfolio')">See All Projects →</a>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section style="background:#fff;" id="home-insta">
+    <div class="insta-header reveal">
+      <div>
+        <div class="section-label">Instagram</div>
+        <div class="section-title">Latest on <em>Instagram</em></div>
+      </div>
+      <a href="https://www.instagram.com/legendsinfra/" target="_blank" class="btn-primary" style="display:inline-flex;align-items:center;gap:.6rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Follow @legendsinfra
       </a>
     </div>
-    <script>
-    (function(d, s, id) {
-      var js; if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "https://embedsocial.com/cdn/ht.js";
-      d.getElementsByTagName("head")[0].appendChild(js);
-    }(document, "script", "EmbedSocialHashtagScript"));
-    </script>
-  </div>
-</section>
+    <div class="reveal" id="instaFeedWrap">
+      <div class="embedsocial-hashtag" data-ref="92eaddebb51141ce59e9558395345866dd099687">
+        <a class="feed-powered-by-es feed-powered-by-es-feed-img es-widget-branding"
+           href="https://embedsocial.com/instagram-widget/" target="_blank" style="display:none!important">
+        </a>
+      </div>
+      <script>(function(d,s,id){var js;if(d.getElementById(id)){return;}js=d.createElement(s);js.id=id;js.src="https://embedsocial.com/cdn/ht.js";d.getElementsByTagName("head")[0].appendChild(js);}(document,"script","EmbedSocialHashtagScript"));</script>
+    </div>
+  </section>
 
-<!-- TESTIMONIALS -->
-<section style="background:var(--green-tint);">
-  <div class="reveal">
-    <div class="section-label">Client Reviews</div>
-    <div class="section-title">What Clients <em>Say</em></div>
-    <div class="divider"></div>
-  </div>
-  <div class="testi-grid reveal">
-    <div class="testi-card">
-      <div class="testi-q">"</div>
-      <p class="testi-text">Legends Infra did an excellent job with our factory gate and compound railing. The finish was clean, delivery on time, and the team was professional throughout.</p>
-      <div style="margin-top:1rem"><div class="testi-name">Ramesh Kumar</div><div class="testi-loc">Factory Owner, Chennai</div></div>
+  <!-- TESTIMONIALS -->
+  <section style="background:var(--green-tint);">
+    <div class="reveal">
+      <div class="section-label">Client Reviews</div>
+      <div class="section-title">What Clients <em>Say</em></div>
+      <div class="divider"></div>
     </div>
-    <div class="testi-card">
-      <div class="testi-q">"</div>
-      <p class="testi-text">We hired them for borewell drilling at our new site. They did a proper soil analysis and the water yield has been excellent. Very trustworthy team.</p>
-      <div style="margin-top:1rem"><div class="testi-name">Suresh Lakshmanan</div><div class="testi-loc">Builder, Coimbatore</div></div>
+    <div class="testi-grid">
+      <div class="testi-card reveal delay-1">
+        <div class="testi-q">"</div>
+        <p class="testi-text">Legends Infra did an excellent job with our factory gate and compound railing. The finish was clean, delivery on time, and the team was professional throughout.</p>
+        <div class="testi-name">Ramesh Kumar</div>
+        <div class="testi-loc">Factory Owner, Chennai</div>
+      </div>
+      <div class="testi-card reveal delay-2">
+        <div class="testi-q">"</div>
+        <p class="testi-text">We hired them for borewell drilling at our new site. They did a proper soil analysis and the water yield has been excellent. Very trustworthy team.</p>
+        <div class="testi-name">Suresh Lakshmanan</div>
+        <div class="testi-loc">Builder, Coimbatore</div>
+      </div>
+      <div class="testi-card reveal delay-3">
+        <div class="testi-q">"</div>
+        <p class="testi-text">The false ceiling and metalwork for our showroom is exactly what we imagined. Great design sense and very fair pricing. Highly recommended!</p>
+        <div class="testi-name">Priya Muthu</div>
+        <div class="testi-loc">Showroom Owner, Tambaram</div>
+      </div>
     </div>
-    <div class="testi-card">
-      <div class="testi-q">"</div>
-      <p class="testi-text">The false ceiling and metalwork for our showroom is exactly what we imagined. Great design sense and very fair pricing. Highly recommended!</p>
-      <div style="margin-top:1rem"><div class="testi-name">Priya Muthu</div><div class="testi-loc">Showroom Owner, Tambaram</div></div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- CTA -->
-<div class="cta-band reveal">
-  <div>
-    <h2>Ready to Start<br>Your <em>Project?</em></h2>
-    <p>Call us or drop a message — we'll get back within 24 hours.</p>
+  <!-- CTA -->
+  <div class="cta-band reveal">
+    <div>
+      <h2>Ready to Start<br>Your <em>Project?</em></h2>
+      <p>Call us or drop a message — we'll get back within 24 hours.</p>
+    </div>
+    <div class="cta-btns">
+      <a href="tel:+919677029865" class="btn-brass">📞 Call Now</a>
+      <a class="btn-hero-outline" onclick="navTo('contact')">Send Enquiry</a>
+    </div>
   </div>
-  <div class="cta-btns">
-    <a href="tel:+919677029865" class="btn-brass">📞 Call Now</a>
-    <a href="contact.html" class="btn-hero-outline">Send Enquiry</a>
-  </div>
+
+  <footer id="homeFooter"></footer>
 </div>
 
-<a href="https://wa.me/919677029865" class="wa-float" target="_blank">💬</a>
+<!-- ════════════════════════════════════════════════════════
+     PAGE: SERVICES
+════════════════════════════════════════════════════════ -->
+<div class="page" id="page-services">
+
+  <div class="page-banner">
+    <div class="page-banner-content reveal">
+      <div class="breadcrumb"><a onclick="navTo('home')">Home</a> / Services</div>
+      <h1>Our <em>Services</em></h1>
+      <p>End-to-end fabrication and borewell solutions — quality built, delivered on time.</p>
+    </div>
+  </div>
+
+  <!-- FABRICATION -->
+  <div class="service-section" style="background:#fff;">
+    <div class="service-layout reveal">
+      <div class="service-content">
+        <div class="section-label">01 — Metal Works</div>
+        <h2>Decor <em>Fabrication</em></h2>
+        <p>We design and fabricate custom metal structures for homes, offices, factories, and commercial spaces. From ornate decorative gates to heavy industrial frameworks — done with precision.</p>
+        <ul class="service-list">
+          <li>MS & SS entrance gates, pedestrian gates, sliding gates</li>
+          <li>Compound walls, boundary fencing, security grills</li>
+          <li>Staircase railings (SS 304 / MS powder coated)</li>
+          <li>Window grills, ventilation covers, safety screens</li>
+          <li>Pergolas, canopies, shade structures</li>
+          <li>Decorative laser-cut panels and façade elements</li>
+          <li>Custom furniture frames and industrial racks</li>
+        </ul>
+        <div class="price-note"><strong>Free site visit</strong> — we come to you, measure, and give a detailed written quote at no charge.</div>
+        <a class="btn-primary" onclick="navTo('contact')">Get a Quote</a>
+      </div>
+      <div class="service-visual">
+        <div class="service-big-icon">🏗️</div>
+        <div class="service-visual-label">Fabrication Works</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERIOR -->
+  <div class="service-section" style="background:var(--green-tint);">
+    <div class="service-layout reverse reveal">
+      <div class="service-content">
+        <div class="section-label">02 — Interior Works</div>
+        <h2>Interior <em>Fit-Out</em></h2>
+        <p>Transform your commercial or residential space with precision interior fabrication. We bring your design vision to life — clean lines, quality materials, and flawless finish.</p>
+        <ul class="service-list">
+          <li>False ceiling — grid, gypsum, metal tile systems</li>
+          <li>Modular office partitions (glass, MS, aluminium)</li>
+          <li>Wall cladding panels and decorative screens</li>
+          <li>Showroom display racks and shelving systems</li>
+          <li>Factory mezzanine floors and raised platforms</li>
+          <li>Industrial roofing — Mangalore tile, Polycarbonate, GI</li>
+          <li>Restaurant & café interior metalwork</li>
+        </ul>
+        <div class="price-note"><strong>Turnkey available</strong> — we handle the full fit-out from design to final finish.</div>
+        <a class="btn-primary" onclick="navTo('contact')">Get a Quote</a>
+      </div>
+      <div class="service-visual">
+        <div class="service-big-icon">🎨</div>
+        <div class="service-visual-label">Interior Fit-Out</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOREWELL -->
+  <div class="service-section" style="background:#fff;">
+    <div class="service-layout reveal">
+      <div class="service-content">
+        <div class="section-label">03 — Water Solutions</div>
+        <h2>Borewell <em>Drilling</em></h2>
+        <p>Professional borewell drilling using DTH and Rotary rigs. We handle everything — site assessment, drilling, casing, pump fitting, and yield testing. One team, complete solution.</p>
+        <ul class="service-list">
+          <li>Free site assessment & borewell feasibility check</li>
+          <li>DTH and Rotary drilling up to 600+ ft depth</li>
+          <li>PVC and MS casing installation</li>
+          <li>Submersible pump supply and installation (1HP–7.5HP)</li>
+          <li>Panel board, starter, and wiring</li>
+          <li>Yield testing and water quality report</li>
+          <li>Suitable for residential, commercial, agricultural use</li>
+        </ul>
+        <div class="price-note"><strong>Transparent drilling rate</strong> — quoted per foot with full material breakup. No surprises.</div>
+        <a class="btn-primary" onclick="navTo('contact')">Get a Quote</a>
+      </div>
+      <div class="service-visual">
+        <div class="service-big-icon">💧</div>
+        <div class="service-visual-label">Borewell Drilling</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAINTENANCE -->
+  <div class="service-section" style="background:var(--green-tint);">
+    <div class="service-layout reverse reveal">
+      <div class="service-content">
+        <div class="section-label">04 — Maintenance</div>
+        <h2>Borewell <em>Maintenance</em></h2>
+        <p>Is your borewell giving low yield or your pump making noise? We diagnose and fix. Our maintenance team handles both emergency repairs and scheduled servicing.</p>
+        <ul class="service-list">
+          <li>Submersible pump removal, servicing & reinstallation</li>
+          <li>Borewell flushing and compressor air-cleaning</li>
+          <li>Low yield restoration and re-drilling advice</li>
+          <li>Pipe column replacement (GI / HDPE)</li>
+          <li>Starter panel and electrical troubleshooting</li>
+          <li>Annual maintenance contract (AMC) available</li>
+          <li>Emergency service — same day response</li>
+        </ul>
+        <div class="price-note"><strong>Same-day response</strong> for pump breakdowns. Call us and we'll send a technician ASAP.</div>
+        <a class="btn-primary" onclick="navTo('contact')">Book Service</a>
+      </div>
+      <div class="service-visual">
+        <div class="service-big-icon">🔧</div>
+        <div class="service-visual-label">Maintenance</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-band reveal">
+    <div>
+      <h2>Not Sure Which<br><em>Service You Need?</em></h2>
+      <p>Call us — we'll guide you to the right solution for your budget and requirement.</p>
+    </div>
+    <div class="cta-btns">
+      <a href="tel:+919677029865" class="btn-brass">📞 Call Now</a>
+      <a class="btn-hero-outline" onclick="navTo('contact')">Send Enquiry</a>
+    </div>
+  </div>
+
+  <footer id="servicesFooter"></footer>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     PAGE: PORTFOLIO
+════════════════════════════════════════════════════════ -->
+<div class="page" id="page-portfolio">
+
+  <div class="page-banner">
+    <div class="page-banner-content reveal">
+      <div class="breadcrumb"><a onclick="navTo('home')">Home</a> / Our Work</div>
+      <h1>Our <em>Work</em></h1>
+      <p>Real projects. Real results. Updated live from our gallery.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="reveal" style="margin-bottom:2.5rem;">
+      <div class="section-label">Portfolio</div>
+      <div class="section-title">All <em>Projects</em></div>
+      <div class="divider"></div>
+    </div>
+    <div class="media-grid reveal" id="portfolioGrid">
+      <div class="media-grid-placeholder">
+        <div style="text-align:center;padding:4rem;color:var(--text-l)">Loading projects...</div>
+      </div>
+    </div>
+    <div id="portfolioSentinel" style="height:40px;margin-top:1rem;"></div>
+    <div id="portfolioLoading" style="text-align:center;padding:1.5rem;color:var(--text-l);font-size:.85rem;display:none;">Loading more...</div>
+  </section>
+
+  <div class="cta-band reveal">
+    <div>
+      <h2>Like What<br>You <em>See?</em></h2>
+      <p>Let's discuss your project — free consultation, zero pressure.</p>
+    </div>
+    <div class="cta-btns">
+      <a href="tel:+919677029865" class="btn-brass">📞 Call Now</a>
+      <a class="btn-hero-outline" onclick="navTo('contact')">Send Enquiry</a>
+    </div>
+  </div>
+
+  <footer id="portfolioFooter"></footer>
+</div>
+
+<!-- LIGHTBOX (shared across pages) -->
+<div class="lightbox" id="lightbox" onclick="closeLBOutside(event)">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-nav lb-prev" onclick="lbNavigate(-1)">‹</button>
+  <div class="lb-media-wrap" id="lbWrap"></div>
+  <button class="lb-nav lb-next" onclick="lbNavigate(1)">›</button>
+  <div class="lb-counter" id="lbCounter"></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     PAGE: ABOUT / WHY US
+════════════════════════════════════════════════════════ -->
+<div class="page" id="page-about">
+
+  <div class="page-banner">
+    <div class="page-banner-content reveal">
+      <div class="breadcrumb"><a onclick="navTo('home')">Home</a> / Why Us</div>
+      <h1>Why <em>Legends</em></h1>
+      <p>We don't just build structures. We build trust — one project at a time.</p>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <section style="background:#fff;">
+    <div class="story-grid reveal">
+      <div class="story-text">
+        <div class="section-label">Our Story</div>
+        <div class="section-title">Built on <em>Trust</em></div>
+        <div class="divider"></div>
+        <p>Legends Infra was started with a simple mission — to deliver construction and fabrication services that truly last. We saw too many clients disappointed by poor quality work and hidden costs, and we decided to do things differently.</p>
+        <p>Over 8 years, we've grown from a small fabrication shop to a full-service infra company covering decor fabrication, interior fit-out, and borewell solutions across Chennai, Coimbatore, Trichy, Tirunelveli, and all of Tamil Nadu.</p>
+        <p>Every project gets the same treatment — personal attention, quality materials, honest pricing, and a team that shows up and gets the job done right.</p>
+        <a class="btn-primary" onclick="navTo('contact')" style="margin-top:1rem">Work With Us</a>
+      </div>
+      <div class="story-visual">
+        <div class="metric-block">
+          <div class="m-num" data-count="150" data-suffix="+">150+</div>
+          <div class="m-lbl">Projects Done</div>
+        </div>
+        <div class="metric-block">
+          <div class="m-num" data-count="8" data-suffix="+">8+</div>
+          <div class="m-lbl">Years Active</div>
+        </div>
+        <div class="metric-block">
+          <div class="m-num" data-count="50" data-suffix="+">50+</div>
+          <div class="m-lbl">Happy Clients</div>
+        </div>
+        <div class="metric-block">
+          <div class="m-num" data-count="4" data-suffix="">4</div>
+          <div class="m-lbl">Branch Cities</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAND -->
+  <div class="stats-band reveal">
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="num" data-count="150" data-suffix="+">150+</div>
+        <div class="lbl">Total Projects</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" data-count="8" data-suffix="+">8+</div>
+        <div class="lbl">Years Experience</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" data-count="50" data-suffix="+">50+</div>
+        <div class="lbl">Satisfied Clients</div>
+      </div>
+      <div class="stat-box">
+        <div class="num" data-count="600" data-suffix="+">600+</div>
+        <div class="lbl">Ft Max Borewell Depth</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">24hr</div>
+        <div class="lbl">Emergency Response</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VALUES -->
+  <section>
+    <div class="reveal">
+      <div class="section-label">Our Values</div>
+      <div class="section-title">What Drives <em>Us</em></div>
+      <div class="divider"></div>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal delay-1"><div class="value-icon">🎯</div><h3>Quality First</h3><p>We use ISI-certified steel, quality pipes, and trusted pump brands. Every weld, every bolt, every joint is done to last.</p></div>
+      <div class="value-card reveal delay-2"><div class="value-icon">🤝</div><h3>Honest Pricing</h3><p>You receive a detailed written estimate before we start. What we quote is what you pay. No hidden charges.</p></div>
+      <div class="value-card reveal delay-3"><div class="value-icon">⏱️</div><h3>On-Time Delivery</h3><p>We set a realistic timeline upfront and stick to it. Our project schedules are tracked and communicated.</p></div>
+      <div class="value-card reveal delay-4"><div class="value-icon">🛡️</div><h3>After-Service Support</h3><p>Our job doesn't end at handover. We offer warranty on fabrication and pump work, just a call away.</p></div>
+      <div class="value-card reveal delay-5"><div class="value-icon">📐</div><h3>Skilled Craftsmen</h3><p>Our welders, fabricators, and borewell technicians are experienced professionals who take pride in their craft.</p></div>
+      <div class="value-card reveal delay-6"><div class="value-icon">🌍</div><h3>Local Expertise</h3><p>We understand soil conditions, water table levels, and local material suppliers across Tamil Nadu.</p></div>
+    </div>
+  </section>
+
+  <!-- THE LEGENDS WAY -->
+  <section style="background:var(--green-tint);">
+    <div class="story-grid reveal">
+      <div>
+        <div class="section-label">The Difference</div>
+        <div class="section-title">The Legends <em>Way</em></div>
+        <div class="divider"></div>
+        <div class="features-list">
+          <div class="feat-row"><div class="feat-num">01</div><div class="feat-text"><h4>Free Site Visit & Consultation</h4><p>We come to your location, assess the work, and give you a detailed written quote — completely free, no obligation.</p></div></div>
+          <div class="feat-row"><div class="feat-num">02</div><div class="feat-text"><h4>Single Point of Contact</h4><p>You deal with one person from start to finish. No confusion, no passing the buck. Your project manager is reachable throughout.</p></div></div>
+          <div class="feat-row"><div class="feat-num">03</div><div class="feat-text"><h4>Progress Updates</h4><p>We send photos and updates during the project so you can track the work even if you're not on site.</p></div></div>
+          <div class="feat-row"><div class="feat-num">04</div><div class="feat-text"><h4>Clean Worksite</h4><p>Our team cleans up after every day of work. We leave your premises the way we found them — tidy and safe.</p></div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.2rem;">
+        <div class="warranty-card"><div class="w-label">Fabrication</div><p>All metal structures come with a <strong>1-year warranty</strong> against structural defects and weld failures.</p></div>
+        <div class="warranty-card"><div class="w-label">Borewell</div><p>We guarantee minimum yield or <strong>re-drill at no extra charge</strong>. Written yield commitment given before drilling starts.</p></div>
+        <div class="warranty-card"><div class="w-label">Pump Installation</div><p>All submersible pump installations include a <strong>6-month service warranty</strong> on labour and fitment.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band reveal">
+    <div>
+      <h2>Let's Build<br><em>Something Great</em></h2>
+      <p>Reach out today — free consultation, zero pressure.</p>
+    </div>
+    <div class="cta-btns">
+      <a href="tel:+919677029865" class="btn-brass">📞 Call Now</a>
+      <a class="btn-hero-outline" onclick="navTo('contact')">Send Enquiry</a>
+    </div>
+  </div>
+
+  <footer id="aboutFooter"></footer>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     PAGE: CONTACT
+════════════════════════════════════════════════════════ -->
+<div class="page" id="page-contact">
+
+  <div class="page-banner">
+    <div class="page-banner-content reveal">
+      <div class="breadcrumb"><a onclick="navTo('home')">Home</a> / Contact</div>
+      <h1>Get in <em>Touch</em></h1>
+      <p>Tell us about your project. We'll get back within 24 hours with a free quote.</p>
+    </div>
+  </div>
+
+  <section style="background:#fff;">
+    <div class="contact-layout reveal">
+      <!-- INFO -->
+      <div>
+        <div class="section-label">Contact Details</div>
+        <div class="section-title">Reach <em>Us</em></div>
+        <div class="divider"></div>
+        <div class="contact-info-list">
+          <div class="ci-item">
+            <div class="ci-icon">📞</div>
+            <div><h4>Phone / WhatsApp</h4><a href="tel:+919677029865">+91 96770 29865</a></div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon">✉️</div>
+            <div><h4>Email</h4><a href="mailto:legendsinfra@gmail.com">legendsinfra@gmail.com</a></div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon">💬</div>
+            <div><h4>WhatsApp</h4><a href="https://wa.me/919677029865?text=Hi%20Legends%20Infra%2C%20I%20need%20a%20quote%20for..." target="_blank">Chat on WhatsApp →</a></div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon">📷</div>
+            <div><h4>Instagram</h4><a href="https://www.instagram.com/legendsinfra/" target="_blank">@legendsinfra →</a></div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon">📍</div>
+            <div>
+              <h4>Branch Offices</h4>
+              <p>Chennai · Coimbatore · Trichy · Tirunelveli</p>
+              <p style="font-size:.78rem;color:var(--text-l);margin-top:.25rem">Serving clients across all of Tamil Nadu</p>
+            </div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon">🕐</div>
+            <div><h4>Working Hours</h4><p>Monday – Saturday: 8:00 AM to 7:00 PM<br/>Emergency borewell: 24/7</p></div>
+          </div>
+        </div>
+        <div style="border-radius:4px;overflow:hidden;border:1px solid var(--border);position:relative;">
+          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=80&auto=format&fit=crop"
+               alt="Legends Infra construction"
+               style="width:100%;height:180px;object-fit:cover;display:block;filter:brightness(.8);"/>
+          <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(27,58,44,.85));padding:1rem 1.2rem;">
+            <p style="font-size:.83rem;font-weight:600;color:#fff;margin:0 0 .1rem">4 Branches. All of Tamil Nadu.</p>
+            <p style="font-size:.73rem;color:rgba(255,255,255,.65);margin:0">Free site visit — we come to you.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="form-card">
+        <h2>Request a <em>Quote</em></h2>
+        <p class="sub">Fill in the details and we'll get back to you within 24 hours.</p>
+        <div id="contactSuccessMsg" class="success-msg">✅ Thank you! Your enquiry has been submitted. We'll call you back within 24 hours.</div>
+        <div id="contactForm">
+          <div class="form-row">
+            <div class="form-group"><label>Your Name *</label><input type="text" id="fname" placeholder="e.g. Ravi Kumar"/></div>
+            <div class="form-group"><label>Phone Number *</label><input type="tel" id="fphone" placeholder="+91 96770 00000"/></div>
+          </div>
+          <div class="form-group"><label>Email (optional)</label><input type="email" id="femail" placeholder="your@email.com"/></div>
+          <div>
+            <span class="s-tag-label">Service Required</span>
+            <div class="service-tags" id="serviceTags">
+              <span class="s-tag" onclick="this.classList.toggle('selected')">Decor Fabrication</span>
+              <span class="s-tag" onclick="this.classList.toggle('selected')">Interior Fit-Out</span>
+              <span class="s-tag" onclick="this.classList.toggle('selected')">Borewell Drilling</span>
+              <span class="s-tag" onclick="this.classList.toggle('selected')">Borewell Maintenance</span>
+              <span class="s-tag" onclick="this.classList.toggle('selected')">Commercial Project</span>
+              <span class="s-tag" onclick="this.classList.toggle('selected')">Residential Work</span>
+              <span class="s-tag" onclick="this.classList.toggle('selected')">Other</span>
+            </div>
+          </div>
+          <div class="form-group"><label>Location / Area</label><input type="text" id="flocation" placeholder="e.g. Tambaram, Chennai"/></div>
+          <div class="form-group">
+            <label>Project Details</label>
+            <textarea id="fdetails" placeholder="Describe your requirement — type of work, rough size, timeline, etc."></textarea>
+          </div>
+          <button class="btn-submit" onclick="submitContactForm()">Send Enquiry →</button>
+          <p style="font-size:.72rem;color:var(--text-l);text-align:center;margin-top:.8rem">We respect your privacy. Your details will only be used to contact you about your project.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK ACTIONS -->
+  <section style="background:var(--green-tint);">
+    <div class="reveal" style="text-align:center;margin-bottom:2.5rem">
+      <div class="section-label">Prefer Direct Contact?</div>
+      <div class="section-title">Reach Us <em>Directly</em></div>
+    </div>
+    <div class="quick-actions reveal">
+      <a href="tel:+919677029865" class="quick-action-card">
+        <div class="qa-icon">📞</div>
+        <div class="qa-label" style="color:var(--green)">Call Us Now</div>
+        <div class="qa-sub" style="color:var(--brass)">+91 96770 29865</div>
+      </a>
+      <a href="https://wa.me/919677029865?text=Hi%20Legends%20Infra%2C%20I%20need%20a%20quote%20for..." target="_blank" class="quick-action-card">
+        <div class="qa-icon">💬</div>
+        <div class="qa-label" style="color:var(--green)">WhatsApp Us</div>
+        <div class="qa-sub" style="color:#25D366">Chat Instantly</div>
+      </a>
+      <a href="mailto:legendsinfra@gmail.com" class="quick-action-card">
+        <div class="qa-icon">✉️</div>
+        <div class="qa-label" style="color:var(--green)">Send an Email</div>
+        <div class="qa-sub" style="color:var(--brass)">legendsinfra@gmail.com</div>
+      </a>
+      <a href="https://www.instagram.com/legendsinfra/" target="_blank" class="quick-action-card">
+        <div class="qa-icon">📷</div>
+        <div class="qa-label" style="color:var(--green)">Instagram</div>
+        <div class="qa-sub" style="color:#E1306C">@legendsinfra</div>
+      </a>
+    </div>
+  </section>
+
+  <footer id="contactFooter"></footer>
+</div>
+
+<!-- ═══════════════ WA FLOAT ═══════════════ -->
+<a href="https://wa.me/919677029865?text=Hi%20Legends%20Infra%2C%20I%20need%20a%20quote%20for..." class="wa-float" target="_blank">💬</a>
 <div class="toast" id="toast"></div>
-<script src="shared.js"></script>
+
+<!-- ════════════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════════ -->
 <script>
-async function renderRecent() {
-  const grid = document.getElementById('recentWork');
-  const media = await getCloudinaryMedia('work', 9);
-  if (media.length === 0) {
+'use strict';
+
+/* ── CONFIG ───────────────────────────────────────────── */
+const CLOUDINARY_CLOUD = 'dt1bws8fi';
+const CLOUDINARY_TAG   = 'work';
+const INSTAGRAM_URL    = 'https://www.instagram.com/legendsinfra/';
+
+/* ── FOOTER HTML ──────────────────────────────────────── */
+const FOOTER_HTML = `
+<div style="background:var(--green);color:rgba(255,255,255,.8);padding:5rem 5% 2.5rem;border-top:1px solid rgba(255,255,255,.06);">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">LEGENDS <span>INFRA</span></div>
+      <div class="footer-tagline">Decor Fabrication · Borewell · Construction</div>
+      <div class="footer-tagline" style="margin-top:.3rem">Chennai · Coimbatore · Trichy · Tirunelveli</div>
+      <div style="margin-top:1.4rem">
+        <a href="${INSTAGRAM_URL}" target="_blank" style="color:rgba(255,255,255,.5);font-size:.78rem;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;transition:color .3s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.5)'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          @legendsinfra
+        </a>
+      </div>
+    </div>
+    <div class="footer-cols">
+      <div>
+        <div class="footer-col-title">Pages</div>
+        <a onclick="navTo('home')">Home</a>
+        <a onclick="navTo('services')">Services</a>
+        <a onclick="navTo('portfolio')">Our Work</a>
+        <a onclick="navTo('about')">Why Us</a>
+        <a onclick="navTo('contact')">Contact</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <a onclick="navTo('services')">Decor Fabrication</a>
+        <a onclick="navTo('services')">Interior Fit-Out</a>
+        <a onclick="navTo('services')">Borewell Drilling</a>
+        <a onclick="navTo('services')">Maintenance</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <a href="tel:+919677029865">📞 +91 96770 29865</a>
+        <a href="mailto:legendsinfra@gmail.com">✉ legendsinfra@gmail.com</a>
+        <a href="https://wa.me/919677029865?text=Hi%20Legends%20Infra%2C%20I%20need%20a%20quote%20for..." target="_blank">💬 WhatsApp Us</a>
+        <a href="${INSTAGRAM_URL}" target="_blank">📷 Instagram</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Legends Infra. All rights reserved.</span>
+    <span>Serving all of Tamil Nadu</span>
+  </div>
+</div>`;
+
+/* ── INJECT FOOTERS ───────────────────────────────────── */
+function injectFooters() {
+  ['homeFooter','servicesFooter','portfolioFooter','aboutFooter','contactFooter'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = FOOTER_HTML;
+  });
+}
+
+/* ── ROUTER ───────────────────────────────────────────── */
+let currentPage = 'home';
+
+function navToCore(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + page);
+  if (!target) return;
+  target.classList.add('active');
+  currentPage = page;
+
+  // Scroll top
+  window.scrollTo({ top: 0, behavior: 'instant' });
+
+  // Nav state
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const navLink = document.getElementById('nl-' + page);
+  if (navLink) navLink.classList.add('active');
+
+  // Dark hero on home
+  const nav = document.getElementById('mainNav');
+  if (page === 'home') {
+    nav.classList.add('dark-hero');
+  } else {
+    nav.classList.remove('dark-hero');
+  }
+  // Re-check scroll state
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+
+  // Trigger reveals for the new page
+  setTimeout(() => initReveal(), 50);
+
+  // Page-specific init
+  if (page === 'portfolio') initPortfolio();
+  if (page === 'home') initHomeWork();
+
+  // Counter animation on about page
+  if (page === 'about') initCounters();
+
+  // Hash for back-button
+  history.pushState({ page }, '', '#' + page);
+}
+
+/* ── REVEAL OBSERVER ──────────────────────────────────── */
+let revealObserver = null;
+function initReveal() {
+  if (revealObserver) revealObserver.disconnect();
+  revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('#page-' + currentPage + ' .reveal').forEach(el => {
+    revealObserver.observe(el);
+  });
+}
+
+/* ── COUNTER ANIMATION ────────────────────────────────── */
+let countersInit = false;
+function initCounters() {
+  countersInit = false;
+  const obs = new IntersectionObserver(entries => {
+    if (!entries[0].isIntersecting || countersInit) return;
+    countersInit = true;
+    document.querySelectorAll('#page-about [data-count]').forEach(el => {
+      const target  = parseInt(el.dataset.count);
+      const suffix  = el.dataset.suffix || '';
+      const dur     = 1800;
+      const step    = 16;
+      const steps   = dur / step;
+      let current   = 0;
+      const inc     = target / steps;
+      const timer   = setInterval(() => {
+        current = Math.min(current + inc, target);
+        el.textContent = Math.floor(current) + suffix;
+        if (current >= target) clearInterval(timer);
+      }, step);
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('#page-about .stats-band, #page-about .story-visual').forEach(el => obs.observe(el));
+}
+
+/* ── PROGRESS BAR ─────────────────────────────────────── */
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total    = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = total > 0 ? scrolled / total : 0;
+  document.getElementById('progressLine').style.transform = `scaleX(${progress})`;
+  document.getElementById('mainNav').classList.toggle('scrolled', scrolled > 50);
+});
+
+/* ── MOBILE MENU ──────────────────────────────────────── */
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const btn  = document.getElementById('hamburger');
+  const isOpen = menu.classList.contains('open');
+  menu.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+  document.body.style.overflow = isOpen ? '' : 'hidden';
+}
+
+/* ── CLOUDINARY ───────────────────────────────────────── */
+async function getCloudinaryMedia(tag = CLOUDINARY_TAG, maxResults = 200) {
+  try {
+    const [imgRes, vidRes] = await Promise.all([
+      fetch(`https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/list/${tag}.json`),
+      fetch(`https://res.cloudinary.com/${CLOUDINARY_CLOUD}/video/list/${tag}.json`)
+    ]);
+    const imgData = imgRes.ok ? await imgRes.json() : { resources: [] };
+    const vidData = vidRes.ok ? await vidRes.json() : { resources: [] };
+    const images = (imgData.resources || []).map(r => ({
+      type: 'image',
+      id:   r.public_id,
+      url:  `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_1200,q_auto,f_auto/${r.public_id}.jpg`,
+      thumb:`https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_600,q_auto,f_auto/${r.public_id}.jpg`,
+    }));
+    const videos = (vidData.resources || []).map(r => ({
+      type: 'video',
+      id:   r.public_id,
+      url:  `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/video/upload/${r.public_id}.mp4`,
+      thumb:`https://res.cloudinary.com/${CLOUDINARY_CLOUD}/video/upload/w_600,q_auto,f_auto,so_2/${r.public_id}.jpg`,
+    }));
+    return [...images, ...videos].slice(0, maxResults);
+  } catch(e) {
+    console.warn('Cloudinary error:', e);
+    return [];
+  }
+}
+
+/* Fallback samples when Cloudinary empty */
+const SAMPLE_MEDIA = [
+  {type:'image',url:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80',thumb:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=75'},
+  {type:'image',url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80',thumb:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75'},
+  {type:'image',url:'https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=1200&q=80',thumb:'https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=600&q=75'},
+  {type:'image',url:'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80',thumb:'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&q=75'},
+  {type:'image',url:'https://images.unsplash.com/photo-1590736969955-71cc94901144?w=1200&q=80',thumb:'https://images.unsplash.com/photo-1590736969955-71cc94901144?w=600&q=75'},
+  {type:'image',url:'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=1200&q=80',thumb:'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=600&q=75'},
+  {type:'image',url:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80',thumb:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=75'},
+  {type:'image',url:'https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=1200&q=80',thumb:'https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=600&q=75'},
+  {type:'image',url:'https://images.unsplash.com/photo-1527689368864-3a821dbccc34?w=1200&q=80',thumb:'https://images.unsplash.com/photo-1527689368864-3a821dbccc34?w=600&q=75'},
+];
+
+/* ── HOME RECENT WORK ─────────────────────────────────── */
+let homeWorkLoaded = false;
+async function initHomeWork() {
+  if (homeWorkLoaded) return;
+  homeWorkLoaded = true;
+  const grid = document.getElementById('homeRecentWork');
+  const media = await getCloudinaryMedia(CLOUDINARY_TAG, 9);
+  const items = media.length > 0 ? media.slice(0, 9) : SAMPLE_MEDIA.slice(0, 9);
+  if (items.length === 0) {
     grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--text-l)">Projects coming soon...</div>';
     return;
   }
-  grid.innerHTML = media.slice(0, 9).map(item => {
-    const isVideo = item.type === 'video';
-    return `
-      <div style="position:relative;overflow:hidden;border-radius:4px;background:var(--green-pale);aspect-ratio:4/3;cursor:pointer" onclick="window.location='portfolio.html'">
-        <img src="${item.thumb}" alt="Legends Infra work" loading="lazy"
-          style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s"
-          onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"
-          onerror="this.style.display='none'"/>
-        ${isVideo ? `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(27,58,44,.25)">
-          <div style="width:44px;height:44px;background:rgba(27,58,44,.8);border-radius:50%;display:flex;align-items:center;justify-content:center;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
-          </div></div>` : ''}
-      </div>`;
-  }).join('');
+  grid.innerHTML = items.map((item, i) => `
+    <div class="work-mini-item reveal" style="transition-delay:${i * 0.07}s" onclick="openLightboxWith(${i}, 'home')">
+      <img src="${item.thumb}" alt="Legends Infra work" loading="lazy"
+        onerror="this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=75'"/>
+      <div class="work-mini-overlay"><span>${item.type === 'video' ? '▶ Video' : 'View'}</span></div>
+      ${item.type === 'video' ? `<div class="play-badge"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>` : ''}
+    </div>`).join('');
+  setTimeout(() => initReveal(), 60);
 }
 
-document.addEventListener('DOMContentLoaded', renderRecent);
+/* ── PORTFOLIO ────────────────────────────────────────── */
+let portfolioMedia = [];
+let portfolioShown = 0;
+const PORT_PAGE_SIZE = 15;
+let portfolioLoaded = false;
+
+async function initPortfolio() {
+  if (portfolioLoaded) return;
+  portfolioLoaded = true;
+  const grid = document.getElementById('portfolioGrid');
+  grid.innerHTML = '<div class="media-grid-placeholder"><div style="text-align:center;padding:4rem;color:var(--text-l)">Loading projects...</div></div>';
+  const media = await getCloudinaryMedia(CLOUDINARY_TAG, 300);
+  portfolioMedia = media.length > 0 ? media : SAMPLE_MEDIA;
+  portfolioShown = 0;
+  grid.className = 'media-grid reveal';
+  grid.innerHTML = '';
+  renderPortfolioBatch();
+  setupPortfolioScroll();
+  setTimeout(() => { grid.classList.add('visible'); }, 100);
+}
+
+function renderPortfolioBatch() {
+  const grid = document.getElementById('portfolioGrid');
+  const batch = portfolioMedia.slice(portfolioShown, portfolioShown + PORT_PAGE_SIZE);
+  if (batch.length === 0 && portfolioShown === 0) {
+    grid.innerHTML = '<div class="media-grid-placeholder"><div style="text-align:center;padding:4rem;color:var(--text-l)">No projects yet — check back soon.</div></div>';
+    return;
+  }
+  batch.forEach((item, i) => {
+    const idx = portfolioShown + i;
+    const card = document.createElement('div');
+    card.className = 'media-card';
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity .7s ease, transform .7s ease';
+    card.style.transitionDelay = (i * 0.05) + 's';
+    card.onclick = () => openLightboxWith(idx, 'portfolio');
+    card.innerHTML = `
+      <img src="${item.thumb}" alt="Legends Infra work" loading="lazy"
+        onerror="this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=75'"/>
+      <div class="media-card-overlay"></div>
+      ${item.type === 'video' ? `<div class="play-badge"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>` : ''}`;
+    grid.appendChild(card);
+    // Trigger animation
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      });
+    });
+  });
+  portfolioShown += batch.length;
+}
+
+function setupPortfolioScroll() {
+  const sentinel = document.getElementById('portfolioSentinel');
+  const loader   = document.getElementById('portfolioLoading');
+  if (!sentinel) return;
+  const obs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && portfolioShown < portfolioMedia.length) {
+      loader.style.display = 'block';
+      setTimeout(() => { renderPortfolioBatch(); loader.style.display = 'none'; }, 400);
+    }
+  }, { rootMargin: '300px' });
+  obs.observe(sentinel);
+}
+
+/* ── LIGHTBOX ─────────────────────────────────────────── */
+let lbMedia  = [];
+let lbCurrent = 0;
+
+function openLightboxWith(index, source) {
+  lbMedia   = source === 'portfolio' ? portfolioMedia : SAMPLE_MEDIA;
+  lbCurrent = index;
+  showLBItem();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.addEventListener('keydown', handleLBKey);
+}
+
+function showLBItem() {
+  const item = lbMedia[lbCurrent];
+  const wrap = document.getElementById('lbWrap');
+  wrap.innerHTML = item.type === 'video'
+    ? `<video src="${item.url}" controls autoplay playsinline></video>`
+    : `<img src="${item.url}" alt="Legends Infra work"/>`;
+  document.getElementById('lbCounter').textContent = `${lbCurrent + 1} / ${lbMedia.length}`;
+}
+
+function lbNavigate(dir) {
+  const v = document.querySelector('#lbWrap video');
+  if (v) v.pause();
+  lbCurrent = (lbCurrent + dir + lbMedia.length) % lbMedia.length;
+  showLBItem();
+}
+
+function closeLightbox() {
+  const v = document.querySelector('#lbWrap video');
+  if (v) v.pause();
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+  document.removeEventListener('keydown', handleLBKey);
+}
+
+function closeLBOutside(e) {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+}
+
+function handleLBKey(e) {
+  if (e.key === 'ArrowRight') lbNavigate(1);
+  else if (e.key === 'ArrowLeft') lbNavigate(-1);
+  else if (e.key === 'Escape') closeLightbox();
+}
+
+/* ── CONTACT FORM ─────────────────────────────────────── */
+function submitContactForm() {
+  const name  = document.getElementById('fname').value.trim();
+  const phone = document.getElementById('fphone').value.trim();
+  if (!name || !phone) { showToast('Please enter your name and phone number.'); return; }
+  const form = document.getElementById('contactForm');
+  form.style.opacity = '.4';
+  form.style.pointerEvents = 'none';
+  document.getElementById('contactSuccessMsg').style.display = 'block';
+  document.getElementById('contactSuccessMsg').scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+/* ── TOAST ────────────────────────────────────────────── */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+/* ── HERO CURSOR + IMAGE FOLLOWER ────────────────────── */
+document.addEventListener('DOMContentLoaded', function() {
+  const cursor    = document.getElementById('heroCursor');
+  const follower  = document.getElementById('heroImgFollower');
+  const imgEl     = document.getElementById('heroImgEl');
+  const hero      = document.getElementById('heroSection');
+
+  if (!cursor || !follower || !hero) return;
+
+  let mouseX = 0, mouseY = 0;
+  let followerX = 0, followerY = 0;
+  let currentSrc = '';
+  let rafId = null;
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function tick() {
+    followerX = lerp(followerX, mouseX, 0.1);
+    followerY = lerp(followerY, mouseY, 0.1);
+    follower.style.left = followerX + 'px';
+    follower.style.top  = followerY + 'px';
+    rafId = requestAnimationFrame(tick);
+  }
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+  });
+
+  hero.addEventListener('mouseenter', () => {
+    cursor.classList.add('visible');
+    followerX = mouseX; followerY = mouseY;
+    if (!rafId) tick();
+  });
+
+  hero.addEventListener('mouseleave', () => {
+    cursor.classList.remove('visible', 'hovering');
+    follower.classList.remove('visible');
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  });
+
+  document.querySelectorAll('.hw').forEach(word => {
+    word.addEventListener('mouseenter', () => {
+      const src = word.dataset.img;
+      if (src) {
+        if (src !== currentSrc) {
+          imgEl.style.opacity = '0';
+          const tmp = new Image();
+          tmp.onload = () => { imgEl.src = src; imgEl.style.opacity = '1'; };
+          tmp.src = src;
+          currentSrc = src;
+        }
+        follower.classList.add('visible');
+        cursor.classList.add('hovering');
+      }
+    });
+    word.addEventListener('mouseleave', () => {
+      follower.classList.remove('visible');
+      cursor.classList.remove('hovering');
+    });
+  });
+});
+
+/* ── PORTFOLIO PAGE NAV COLOUR ───────────────────────── */
+function navTo(page) {
+  navToCore(page);
+  const nav = document.getElementById('mainNav');
+  if (page === 'portfolio') {
+    nav.style.setProperty('background','rgba(10,22,16,.97)','important');
+    nav.style.setProperty('border-bottom-color','rgba(184,148,90,.15)','important');
+    document.querySelectorAll('.nav-links a').forEach(a => a.style.color = 'rgba(255,255,255,.55)');
+    const logo = nav.querySelector('.nav-logo');
+    if (logo) logo.style.color = 'rgba(255,255,255,.85)';
+  } else {
+    nav.style.removeProperty('background');
+    nav.style.removeProperty('border-bottom-color');
+    document.querySelectorAll('.nav-links a').forEach(a => a.style.color = '');
+    const logo = nav.querySelector('.nav-logo');
+    if (logo) logo.style.color = '';
+  }
+}
+
+
+window.addEventListener('load', () => {
+  // House draws in ~3.9s, then hold a beat, then fade out
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('done');
+  }, 4600);
+});
+
+/* ── BACK BUTTON ──────────────────────────────────────── */
+window.addEventListener('popstate', (e) => {
+  if (e.state && e.state.page) navTo(e.state.page);
+});
+
+/* ── INIT ─────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  injectFooters();
+
+  // Read hash or default home
+  const hash = location.hash.replace('#', '');
+  const startPage = ['home','services','portfolio','about','contact'].includes(hash) ? hash : 'home';
+  navTo(startPage);
+
+  // Scroll listener for nav shadow already in place
+  // Reveal init called by navTo
+});
 </script>
 </body>
 </html>
